@@ -1,0 +1,103 @@
+/* header */
+
+.header-content {
+    @apply bg-black w-full h-16 
+}
+.header-container {
+    @apply container mx-auto flex text-center justify-center items-center cursor-pointer
+}
+.logo {
+    @apply text-white mr-36 mt-4 
+}
+.menu {
+    @apply text-white mt-4
+}
+ .menu a {
+    @apply text-blue-600 hover:text-blue-500 transition-all
+ }
+/* endHeader */
+
+/* titles */
+
+h1 {
+    @apply text-3xl font-semibold text-blue-600
+}
+
+h2 {
+    @apply text-2xl font-semibold text-blue-600
+}
+h3 {
+    @apply text-xl font-semibold text-blue-600
+}
+
+/* register form */
+.input-text {
+    @apply bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight  focus:bg-white focus:border-blue-500
+}
+.label-text {
+    @apply text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4
+}
+
+.input-text {
+    @apply outline-none
+}
+
+/* button */
+.btn-send {
+    @apply shadow bg-blue-500 hover:bg-blue-400  text-white font-bold py-2 px-4 rounded-md transition-all
+}
+
+
+
+/* select menu dropdown */
+
+select {
+    @apply bg-black text-blue-600 outline-none rounded-none cursor-pointer
+
+}
+.username {
+    @apply text-blue-600 outline-none
+}
+option {
+    @apply rounded-none cursor-pointer
+}
+/*  */
+
+/* add product */
+
+.text-area {
+    @apply block p-2.5 w-full text-sm text-black outline-none border-2 rounded-lg  border-gray-500 focus:ring-gray-500 focus:border-gray-500  dark:border-gray-200  dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500
+}
+
+
+/*  */
+
+/* ProductList table */
+
+.table {
+    @apply w-full  
+}
+.table-title {
+    @apply text-sm text-center uppercase font-semibold   p-3 bg-gray-200
+}
+
+.table-content {
+    @apply text-sm p-3 border-t  
+}
+
+/* footer */
+.footer {
+    @apply  w-full bg-black text-white h-12 absolute bottom-0 flex text-center justify-center items-center cursor-pointer
+}
+
+.menu-footer {
+    @apply text-white mt-2
+}
+
+.menu-footer a {
+    @apply text-blue-600 hover:text-blue-500 transition-all
+}
+
+.logo-footer {
+    @apply text-white mr-36 mt-2 
+}
