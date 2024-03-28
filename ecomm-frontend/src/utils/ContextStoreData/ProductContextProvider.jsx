@@ -4,22 +4,43 @@ export const ProductContext = createContext()
 
 const ProductContextProvider = (props) => {
 
-    const [data, setData] = useState([])
+    const [datas, setData] = useState([])
 
+  
     useEffect(() => {
-
-        async function getProductList() {
-
-            let result = await fetch(`${process.env.REACT_APP_API_PRODUCTLIST_URL}`);
-            result = await result.json();
-            setData(result);
-        }
-
         getProductList()
+      
     }, [])
+ 
 
-    const value = { data }
 
+    /* get Data function */
+    async function getProductList() {
+        let result = await fetch(`${process.env.REACT_APP_API_PRODUCTLIST_URL}`);
+        result = await result.json();
+        setData(result);
+    }
+    /*  */
+
+
+    /* delete by id function */
+    async function deleteAction(id) {
+          let result =  await fetch(`http://localhost:8000/api/delete-product/`+id, {
+                method: "delete"
+            });
+            result =  await result.json();
+            getProductList()
+    }
+    /*  */
+
+
+
+
+
+    /* variable to export */
+    const value = { datas, deleteAction, getProductList}
+
+    /* return value */
     return (
         <ProductContext.Provider value={value}>
             {props.children}

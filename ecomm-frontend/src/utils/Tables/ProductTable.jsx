@@ -2,8 +2,10 @@ import React, { useContext } from 'react'
 import { ProductContext } from '../ContextStoreData/ProductContextProvider'
 
 const ProductTable = () => {
-    const { data } = useContext(ProductContext);
-    console.log(data)
+
+    const { datas, deleteAction } = useContext(ProductContext);
+    /* console.log(data) */
+
     return (
         <div>
             <h1 className='mb-8'>Product list</h1>
@@ -19,29 +21,23 @@ const ProductTable = () => {
 
                     </tr>
                 </thead>
-                {
-                    data.map(data => {
-                        const { id, name, file_path, description, price } = data;
-                        
-
-                        return (
-                            <>
-                                <tbody className='align-baseline' key={id}>
-                                    <tr className='group cursor-pointer hover:bg-gray-100'>
+                <tbody className='align-baseline'>
+                    {
+                        datas && datas.map(data => {
+                            const { id, name, file_path, description, price } = data;
+                                return (
+                                    <tr key={id} className='group cursor-pointer hover:bg-gray-100'>
                                         <td className='table-content'>{id}</td>
                                         <td className='table-content'>{name}</td>
                                         <td className='table-content'> <img src={`${process.env.REACT_APP_API_URL}` + data.file_path} alt="" className='w-14' /></td>
                                         <td className='table-content'>{description}</td>
                                         <td className='table-content'>{price}</td>
-                                        <button className='btn-send'>ADD TO CART</button>
+                                        <td> <button onClick={() => deleteAction(id)} className='btn-error'>Delete</button></td>
                                     </tr>
-
-                                </tbody>
-                            </>
-                        )
-                    })
-                }
-
+                                )
+                            })
+                    }
+                </tbody>
 
             </table>
         </div>

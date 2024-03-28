@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 export const notifySuccess = (message) =>
   toast(<p style={{ fontSize: 16 }}>{message}</p>, {
     position: "top-right",
-    autoClose: 5000,
+    autoClose: 2000,
     hideProgressBar: false,
     newestOnTop: false,
     closeOnClick: true,
@@ -18,7 +18,7 @@ export const notifySuccess = (message) =>
 export const notifyError = (message) =>
   toast(<p style={{ fontSize: 16 }}>{message}</p>, {
     position: "top-right",
-    autoClose: 5000,
+    autoClose: 2000,
     hideProgressBar: false,
     newestOnTop: false,
     closeOnClick: true,
