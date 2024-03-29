@@ -44,6 +44,7 @@ const ProductContextProvider = (props) => {
     }
     /*  */
 
+    /* get update product by id to be updated */
     async function updateProductId(inputValueId){
         let result = await fetch(`${process.env.REACT_APP_API_PRODUCT_VALUE}/${inputValueId}`);
             result = await result.json()
