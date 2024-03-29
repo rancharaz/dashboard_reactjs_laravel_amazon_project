@@ -16,7 +16,7 @@ const AppRouter = () => {
     <Routes>
       <Route element={<ProtectedRoute/>}> {/* protected routes if login */}
           <Route path={ROUTES.AddProduct} element={<AddProduct />} />
-          <Route path={ROUTES.UpdateProduct} element={<UpdateProduct />} />
+          <Route path={`${ROUTES.UpdateProduct}/:id`} element={<UpdateProduct />} />
           <Route path={ROUTES.EditProduct} element={<EditProduct />} />
           <Route path={ROUTES.ProductList} element={<ProductList />} />
 

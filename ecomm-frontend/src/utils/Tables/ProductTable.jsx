@@ -1,10 +1,13 @@
 import React, { useContext } from 'react'
 import { ProductContext } from '../ContextStoreData/ProductContextProvider'
+import { Link } from 'react-router-dom';
+import { ROUTES } from '../../Routes/RouterConfig';
+import { notifySuccess } from '../Toasts/Toast';
 
 const ProductTable = () => {
 
     const { datas, deleteAction } = useContext(ProductContext);
-    /* console.log(data) */
+
 
     return (
         <div>
@@ -33,6 +36,12 @@ const ProductTable = () => {
                                         <td className='table-content'>{description}</td>
                                         <td className='table-content'>{price}</td>
                                         <td> <button onClick={() => deleteAction(id)} className='btn-error'>Delete</button></td>
+                                        <td> 
+                                            <Link to={`${ROUTES.UpdateProduct}/${id}`}>
+                                            <button className='btn-success'>Update</button>
+                                            </Link>
+                                        </td>
+
                                     </tr>
                                 )
                             })
