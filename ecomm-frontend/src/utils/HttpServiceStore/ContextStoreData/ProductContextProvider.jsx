@@ -1,5 +1,5 @@
 import React, { useState, createContext, useEffect } from 'react'
-import { notifyError, notifySuccess } from '../Toasts/Toast';
+import { notifyError, notifySuccess } from '../../Toasts/Toast';
 import { useParams } from 'react-router-dom'
 
 export const ProductContext = createContext()

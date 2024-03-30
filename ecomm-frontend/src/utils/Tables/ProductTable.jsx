@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
-import { ProductContext } from '../ContextStoreData/ProductContextProvider'
+import { ProductContext } from '../HttpServiceStore/ContextStoreData/ProductContextProvider'
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../../Routes/RouterConfig';
+import { ROUTES } from '../Routes/RouterConfig';
 import { notifySuccess } from '../Toasts/Toast';
 
 const ProductTable = () => {

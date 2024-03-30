@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react'
 import Header from '../UI/Header/Header'
 import ProductTable from '../../utils/Tables/ProductTable'
-import { ProductContext } from '../../utils/ContextStoreData/ProductContextProvider';
+import { ProductContext } from '../../utils/HttpServiceStore/ContextStoreData/ProductContextProvider';
 
 const ProductList = () => {
   /* show Products on load */

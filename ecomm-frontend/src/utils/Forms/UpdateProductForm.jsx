@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router-dom'
-import { ProductContext } from '../ContextStoreData/ProductContextProvider';
+import { ProductContext } from '../HttpServiceStore/ContextStoreData/ProductContextProvider';
 
 const UpdateProductForm = () => {
     const {updateProductId, updateProduct } = useContext(ProductContext);

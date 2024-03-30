@@ -1,6 +1,6 @@
-import AppRouter from "./Routes/AppRouter";
+import AppRouter from "./utils/Routes/AppRouter";
 import { ToastContainer } from "react-toastify";
-import ProductContextProvider from "./utils/ContextStoreData/ProductContextProvider";
+import ProductContextProvider from "./utils/HttpServiceStore/ContextStoreData/ProductContextProvider";
 
 function App() {
   return (

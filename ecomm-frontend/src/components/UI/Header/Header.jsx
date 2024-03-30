@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { MENULIST } from '../../../utils/ListConfigItems/MenuListConfig';
-import { ROUTES } from '../../../Routes/RouterConfig';
+import { ROUTES } from '../../../utils/Routes/RouterConfig';
 import { useNavigate } from 'react-router-dom';
 
 
