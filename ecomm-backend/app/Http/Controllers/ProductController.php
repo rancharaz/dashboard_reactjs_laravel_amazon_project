@@ -20,6 +20,7 @@ class ProductController extends Controller
     public function list(){
         return Product::all();
     }
+
     public function delete($id) {
         $result = Product::where('id', $id)->delete();
         if($result){
@@ -41,4 +42,7 @@ class ProductController extends Controller
             return $product;
         }
 
+    public function search($key){
+        return Product::where('name', 'Like', "%$key%")->get();
+    }
 }
