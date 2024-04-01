@@ -10,7 +10,7 @@ const Header = () => {
   const user = JSON.parse(localStorage.getItem('user-info'));
   let navigate = useNavigate();
 
-  function logout(){
+  function logout() {
     localStorage.clear();
     navigate(`${ROUTES.Register}`)
   }
@@ -28,10 +28,10 @@ const Header = () => {
               {
                 localStorage.getItem('user-info') ?
                   <>
-                    <Link to={ROUTES.AddProduct}>{MENULIST.AddProduct}</Link>
-                    <Link to={ROUTES.UpdateProduct}>{MENULIST.UpdateProduct}</Link>
-                    <Link to={ROUTES.EditProduct}>{MENULIST.EditProduct}</Link>
                     <Link to={ROUTES.ProductList}>{MENULIST.ProductList}</Link>
+                    <Link to={ROUTES.AddProduct}>{MENULIST.AddProduct}</Link>
+
+                    <Link to={ROUTES.SearchProduct}>{MENULIST.SearchProduct}</Link>
 
                     <Link>Username: {user.name}</Link>
                     <Link to={ROUTES.Register} onClick={logout}>{MENULIST.Logout}</Link>
@@ -45,7 +45,7 @@ const Header = () => {
 
                   </>
               }
-            
+
             </ul>
           </div>
         </div>

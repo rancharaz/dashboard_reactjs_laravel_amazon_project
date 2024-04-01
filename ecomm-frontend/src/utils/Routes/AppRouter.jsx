@@ -9,6 +9,7 @@ import EditProduct from '../../components/Pages/EditProduct';
 import ProtectedRoute from './ProtectedRoutes';
 import Footer from '../../components/UI/Footer/Footer';
 import ProductList from '../../components/Pages/ProductList';
+import SearchProduct from '../../components/Pages/SearchProduct';
 
 const AppRouter = () => {
   return (
@@ -19,6 +20,7 @@ const AppRouter = () => {
           <Route path={`${ROUTES.UpdateProduct}/:id`} element={<UpdateProduct />} />
           <Route path={ROUTES.EditProduct} element={<EditProduct />} />
           <Route path={ROUTES.ProductList} element={<ProductList />} />
+          <Route path={ROUTES.SearchProduct} element={<SearchProduct />} />
 
           </Route>
           <Route path={ROUTES.LoginPage} element={<LoginPage />} />

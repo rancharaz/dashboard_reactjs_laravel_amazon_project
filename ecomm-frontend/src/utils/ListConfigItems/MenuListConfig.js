@@ -5,6 +5,7 @@ export const MENULIST = {
     Register: "Register",
     EditProduct: "Edit Product",
     Logout: "Logout",
-    ProductList: 'Product List'
+    ProductList: 'Product List',
+    SearchProduct: "Search Product"
 
 }
