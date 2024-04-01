@@ -33,8 +33,6 @@ const ProductContextProvider = (props) => {
         setData(result);
     }
     /*  */
-
-
     /* delete by id function */
     async function deleteAction(id) {
 
@@ -63,7 +61,27 @@ const ProductContextProvider = (props) => {
 
     /* updated function */
 
-
+    const handleUpdate = async (inputValueId) => {
+        let data = {name, price,description, file_path};/* destructure */
+        
+        let result = await fetch(`http://localhost:8000/api/product/${inputValueId}`, {
+          method: "PUT",
+          body: JSON.stringify(data),
+          headers: {
+    
+    
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type, Authorization',
+            'Access-Control-Allow-Methods': '*',
+            "Content-Type": "application/json"
+        }
+        }).catch(function(error){
+          console.log(error.message)
+        })
+        result = await result.json();
+        alert(`Product ${params.id} updated`);
+     
+      }
  
 
 
@@ -75,7 +93,11 @@ const ProductContextProvider = (props) => {
         deleteAction, 
         getProductList,
         updateProductId,
- 
+        setName,
+        setPrice,
+        setDescription,
+        setFile,
+        handleUpdate,
         name,
         price,
         description,
