@@ -7,7 +7,11 @@ export const ProductContext = createContext()
 const ProductContextProvider = (props) => {
 
     const [datas, setData] = useState([])
-    const [updateProduct, setUpdateProduct] = useState([]);
+ /*    const [updateProduct, setUpdateProduct] = useState([]); */
+    const [name, setName] = useState("");
+    const [price, setPrice] = useState("");
+    const [description, setDescription] = useState("");
+    const [file_path, setFile] = useState();
     const params = useParams();
 
 
@@ -21,7 +25,7 @@ const ProductContextProvider = (props) => {
       
     }, [])
  
-
+ 
     /* get Data function */
     async function getProductList() {
         let result = await fetch(`${process.env.REACT_APP_API_PRODUCTLIST_URL}`);
@@ -48,16 +52,35 @@ const ProductContextProvider = (props) => {
     async function updateProductId(inputValueId){
         let result = await fetch(`${process.env.REACT_APP_API_PRODUCT_VALUE}/${inputValueId}`);
             result = await result.json()
-            setUpdateProduct(result)
+            setName(result.name)
+            setPrice(result.price);
+            setDescription(result.description)
+            setFile(result.file_path)
             console.log("result", result)
+            console.log(file_path)
     }
 
+
+    /* updated function */
+
+
+ 
 
 
 
 
     /* variable to export */
-    const value = { datas, deleteAction, getProductList,updateProductId, updateProduct}
+    const value = { 
+        datas, 
+        deleteAction, 
+        getProductList,
+        updateProductId,
+ 
+        name,
+        price,
+        description,
+        file_path
+    }
 
     /* return value */
     return (

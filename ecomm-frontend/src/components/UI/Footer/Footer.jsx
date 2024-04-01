@@ -1,8 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { MENULIST } from '../../../utils/ListConfigItems/MenuListConfig';
-import { ROUTES } from '../../../Routes/RouterConfig';
-
+ 
 
 
 const Footer = () => {

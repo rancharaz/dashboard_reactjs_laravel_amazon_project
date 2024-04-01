@@ -10,13 +10,24 @@ class UserController extends Controller
 {
     //
     function register(Request $req){
-        $user = new User;
-        $user->name=$req->input('name');
-        $user->email=$req->input('email');
-        $user->password=Hash::make($req->input('password'));
+        /* register function with validation */
+        $fields = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|string|',
+            'password'=> 'required|string'
+        ]);
 
-        $user->save();
-        return $user;
+        /* create user */
+        $user = User::create([
+            'name' => $fields['name'],
+            'email' => $fields['email'],
+            'password' => bcrypt($fields['password'])
+        ]);
+        /* token */
+        $response = [
+            'user' => $user
+        ];
+        return response($response, 201);
     }
 
 

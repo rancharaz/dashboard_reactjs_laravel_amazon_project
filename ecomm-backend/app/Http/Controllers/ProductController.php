@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     //
-    function addProduct(Request $req){
+    public function addProduct(Request $req){
         $product = new Product;
         $product->name=$req->input('name');
         $product->price=$req->input('price');
@@ -17,10 +17,10 @@ class ProductController extends Controller
         return $product;
     }
 
-    function list(){
+    public function list(){
         return Product::all();
     }
-    function delete($id) {
+    public function delete($id) {
         $result = Product::where('id', $id)->delete();
         if($result){
             return ["result"=> "Product has been deleted"];
@@ -29,7 +29,16 @@ class ProductController extends Controller
             return ["result"=> "Operation failed"];
         }
     }
-        function getProduct($id){
+
+    public function getProduct($id){
             return Product::find($id);
         }
+
+    public function update(Request $req, $id)
+        {
+            $product = Product::find($id);
+            $product->update($req->all());
+            return $product;
+        }
+
 }
