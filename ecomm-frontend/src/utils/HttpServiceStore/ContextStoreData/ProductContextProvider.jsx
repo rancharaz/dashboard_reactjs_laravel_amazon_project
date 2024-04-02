@@ -7,11 +7,12 @@ export const ProductContext = createContext()
 const ProductContextProvider = (props) => {
 
     const [datas, setData] = useState([])
- /*    const [updateProduct, setUpdateProduct] = useState([]); */
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     const [file_path, setFile] = useState();
+    const[searchDatas, setSearchDatas] = useState([]);
+
     const params = useParams();
 
 
@@ -83,6 +84,13 @@ const ProductContextProvider = (props) => {
      
       }
  
+      /* search by key */
+      async function search(key){
+        console.log(key);
+        let result = await fetch(`http://localhost:8000/api/search-product/`+key);
+        result = await result.json();
+        setSearchDatas(result)
+    }
 
 
 
@@ -101,7 +109,10 @@ const ProductContextProvider = (props) => {
         name,
         price,
         description,
-        file_path
+        file_path,
+        searchDatas, 
+        setSearchDatas,
+        search
     }
 
     /* return value */

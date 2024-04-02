@@ -28,23 +28,27 @@ const ProductTable = () => {
                     {
                         datas && datas.map(data => {
                             const { id, name, file_path, description, price } = data;
-                                return (
-                                    <tr key={id} className='group cursor-pointer hover:bg-gray-100'>
-                                        <td className='table-content'>{id}</td>
-                                        <td className='table-content'>{name}</td>
-                                        <td className='table-content'> <img src={`${process.env.REACT_APP_API_URL}` + data.file_path} alt="" className='w-14' /></td>
-                                        <td className='table-content'>{description}</td>
-                                        <td className='table-content'>{price}</td>
-                                        <td> <button onClick={() => deleteAction(id)} className='btn-error'>Delete</button></td>
-                                        <td> 
-                                            <Link to={`${ROUTES.UpdateProduct}/${id}`}>
+                            return (
+                                <tr key={id} className='group cursor-pointer hover:bg-gray-100'>
+                                    <td className='table-content'>{id}</td>
+                                    <td className='table-content'>{name}</td>
+                                    <td className='table-content'>
+                                        <Link to={`${process.env.REACT_APP_API_URL}` + data.file_path} target='_blank'>
+                                            <img src={`${process.env.REACT_APP_API_URL}` + data.file_path} alt="" className='w-14' />
+                                        </Link>
+                                    </td>
+                                    <td className='table-content'>{description}</td>
+                                    <td className='table-content'>{price}</td>
+                                    <td> <button onClick={() => deleteAction(id)} className='btn-error'>Delete</button></td>
+                                    <td>
+                                        <Link to={`${ROUTES.UpdateProduct}/${id}`}>
                                             <button className='btn-success'>Update</button>
-                                            </Link>
-                                        </td>
+                                        </Link>
+                                    </td>
 
-                                    </tr>
-                                )
-                            })
+                                </tr>
+                            )
+                        })
                     }
                 </tbody>
 
