@@ -19,7 +19,7 @@ const Header = () => {
     <>
       <header className='header-content'>
         <div className="header-container">
-          <div className="logo" onClick={logout}>
+          <div className="logo">
             LOGO
           </div>
           <div className="menu ">

@@ -32,7 +32,6 @@ const RegisterForm = () => {
                     });
                     result = await result.json();
                     localStorage.setItem("user-info", JSON.stringify(result));
-
                     navigate("/add-product")
         }
 
@@ -50,7 +49,7 @@ const RegisterForm = () => {
                         </label>
                     </div>
                     <div className="md:w-2/3">
-                        <input className="input-text" id="inline-full-name" type="text" onChange={(e) => setName(e.target.value)} value={name}/>
+                        <input className="input-text" id="inline-full-name" type="text" onChange={(e) => setName(e.target.value)} />
                     </div>
                 </div>
                 <div className="md:flex md:items-center mb-6">
@@ -60,7 +59,7 @@ const RegisterForm = () => {
                         </label>
                     </div>
                     <div className="md:w-2/3">
-                        <input className="input-text" id="inline-full-email" type="email" onChange={(e) => setEmail(e.target.value)} value={email} />
+                        <input className="input-text" id="inline-full-email" type="email" onChange={(e) => setEmail(e.target.value)}  />
                     </div>
                 </div>
                 <div className="md:flex md:items-center mb-6">
@@ -70,7 +69,7 @@ const RegisterForm = () => {
                         </label>
                     </div>
                     <div className="md:w-2/3">
-                        <input className="input-text" id="inline-password" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} value={password} />
+                        <input className="input-text" id="inline-password" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
                     </div>
                 </div>
                 <div className="md:flex md:items-center mb-6">

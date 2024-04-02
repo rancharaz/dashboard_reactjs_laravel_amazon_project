@@ -19,12 +19,12 @@ const AppRouter = () => {
           <Route path={ROUTES.AddProduct} element={<AddProduct />} />
           <Route path={`${ROUTES.UpdateProduct}/:id`} element={<UpdateProduct />} />
           <Route path={ROUTES.EditProduct} element={<EditProduct />} />
-          <Route path={ROUTES.ProductList} element={<ProductList />} />
+          <Route path="/" exact element={<ProductList />} />
           <Route path={ROUTES.SearchProduct} element={<SearchProduct />} />
 
           </Route>
           <Route path={ROUTES.LoginPage} element={<LoginPage />} />
-          <Route path={ROUTES.Register} element={<Register />} />
+          <Route path={ROUTES.Register}  element={<Register />} />
     </Routes>
     <Footer />
     </>
