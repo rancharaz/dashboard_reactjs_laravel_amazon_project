@@ -1,21 +1,23 @@
 import React, { useState, createContext, useEffect } from 'react'
 import { notifyError, notifySuccess } from '../../Toasts/Toast';
 import { useParams } from 'react-router-dom'
+import axios from 'axios';
 
 export const ProductContext = createContext()
 
 const ProductContextProvider = (props) => {
 
-    const [datas, setData] = useState([])
+    const [datas, setData] = useState([]);
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     const [file_path, setFile] = useState();
+    
     const[searchDatas, setSearchDatas] = useState([]);
 
     const params = useParams();
 
-
+    /* function launch */
     useEffect(() => {
         getProductList()
       
@@ -33,11 +35,37 @@ const ProductContextProvider = (props) => {
         result = await result.json();
         setData(result);
     }
-    /*  */
+
+    /* add product  */
+
+
+    async function addProduct() {
+
+        const formData = new FormData();
+        formData.append("file", file_path);
+        formData.append("name", name);
+        formData.append("price", price);
+        formData.append("description", description);
+
+        let result = await axios.post(`${process.env.REACT_APP_API_ADD_LINK}`, formData)
+        .then(response => {
+            notifySuccess("Data has been saved");
+        })
+        .catch((error) => {
+            notifyError("Data has not been saved",error);
+        })
+
+    }
+
+
+
+
+
+
+
     /* delete by id function */
     async function deleteAction(id) {
-
-          let result =  await fetch(`${process.env.REACT_APP_API_DELETE_PRODUCT}/`+id, {
+          let result = await fetch(`${process.env.REACT_APP_API_DELETE_PRODUCT}/`+id, {
                 method: "delete"
             });
             result =  await result.json();
@@ -45,7 +73,8 @@ const ProductContextProvider = (props) => {
             notifyError()
             getProductList()
     }
-    /*  */
+
+
 
     /* get update product by id to be updated */
     async function updateProductId(inputValueId){
@@ -60,8 +89,8 @@ const ProductContextProvider = (props) => {
     }
 
 
-    /* updated function */
 
+    /* updated function */
     const handleUpdate = async (inputValueId) => {
         let data = {name, price,description, file_path};/* destructure */
         
@@ -69,8 +98,6 @@ const ProductContextProvider = (props) => {
           method: "PUT",
           body: JSON.stringify(data),
           headers: {
-    
-    
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type, Authorization',
             'Access-Control-Allow-Methods': '*',
@@ -84,6 +111,7 @@ const ProductContextProvider = (props) => {
      
       }
  
+
       /* search by key */
       async function search(key){
         console.log(key);
@@ -112,9 +140,9 @@ const ProductContextProvider = (props) => {
         file_path,
         searchDatas, 
         setSearchDatas,
-        search
+        search,
+        addProduct
     }
-
     /* return value */
     return (
         <ProductContext.Provider value={value}>
