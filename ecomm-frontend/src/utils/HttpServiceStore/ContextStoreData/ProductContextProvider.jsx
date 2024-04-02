@@ -12,23 +12,25 @@ const ProductContextProvider = (props) => {
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     const [file_path, setFile] = useState();
-    
-    const[searchDatas, setSearchDatas] = useState([]);
+
+    const [searchDatas, setSearchDatas] = useState([]);
 
     const params = useParams();
 
     /* function launch */
     useEffect(() => {
         getProductList()
-      
+
     }, [])
- 
+
     useEffect(() => {
         updateProductId()
-      
+
     }, [])
- 
- 
+
+
+
+
     /* get Data function */
     async function getProductList() {
         let result = await fetch(`${process.env.REACT_APP_API_PRODUCTLIST_URL}`);
@@ -36,11 +38,10 @@ const ProductContextProvider = (props) => {
         setData(result);
     }
 
+
+
     /* add product  */
-
-
     async function addProduct() {
-
         const formData = new FormData();
         formData.append("file", file_path);
         formData.append("name", name);
@@ -48,50 +49,46 @@ const ProductContextProvider = (props) => {
         formData.append("description", description);
 
         let result = await axios.post(`${process.env.REACT_APP_API_ADD_LINK}`, formData)
-        .then(response => {
-            notifySuccess("Data has been saved");
-        })
-        .catch((error) => {
-            notifyError("Data has not been saved",error);
-        })
+            .then(response => {
+                notifySuccess("Data has been saved");
+            })
+            .catch((error) => {
+                notifyError("Data has not been saved", error);
+            })
 
     }
-
-
-
-
 
 
 
     /* delete by id function */
     async function deleteAction(id) {
-          let result = await fetch(`${process.env.REACT_APP_API_DELETE_PRODUCT}/`+id, {
-                method: "delete"
-            });
-            result =  await result.json();
-            console.log(result)
-            notifyError()
-            getProductList()
+        let result = await fetch(`${process.env.REACT_APP_API_DELETE_PRODUCT}/` + id, {
+            method: "delete"
+        });
+        result = await result.json();
+        console.log(result)
+        notifyError()
+        getProductList()
     }
 
 
 
     /* get update product by id to be updated */
-    async function updateProductId(inputValueId){
+    async function updateProductId(inputValueId) {
         let result = await fetch(`${process.env.REACT_APP_API_PRODUCT_VALUE}/${inputValueId}`);
-            result = await result.json()
-            setName(result.name)
-            setPrice(result.price);
-            setDescription(result.description)
-            setFile(result.file_path)
-            console.log("result", result)
-            console.log(file_path)
+        result = await result.json()
+        setName(result.name)
+        setPrice(result.price);
+        setDescription(result.description)
+        setFile(result.file_path)
+        console.log("result", result)
+        console.log(file_path)
     }
 
 
 
     /* updated function */
-    const handleUpdate = async (inputValueId) => {
+    async function handleUpdate(inputValueId){
         let data = {name, price,description, file_path};/* destructure */
         
         let result = await fetch(`http://localhost:8000/api/product/${inputValueId}`, {
@@ -107,15 +104,15 @@ const ProductContextProvider = (props) => {
           console.log(error.message)
         })
         result = await result.json();
-        alert(`Product ${params.id} updated`);
+        alert(`Product ${inputValueId} updated`);
      
       }
- 
 
-      /* search by key */
-      async function search(key){
+
+    /* search by key */
+    async function search(key) {
         console.log(key);
-        let result = await fetch(`http://localhost:8000/api/search-product/`+key);
+        let result = await fetch(`http://localhost:8000/api/search-product/` + key);
         result = await result.json();
         setSearchDatas(result)
     }
@@ -124,9 +121,9 @@ const ProductContextProvider = (props) => {
 
 
     /* variable to export */
-    const value = { 
-        datas, 
-        deleteAction, 
+    const value = {
+        datas,
+        deleteAction,
         getProductList,
         updateProductId,
         setName,
@@ -138,7 +135,7 @@ const ProductContextProvider = (props) => {
         price,
         description,
         file_path,
-        searchDatas, 
+        searchDatas,
         setSearchDatas,
         search,
         addProduct

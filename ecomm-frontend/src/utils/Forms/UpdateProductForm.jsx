@@ -13,7 +13,7 @@ const UpdateProductForm = () => {
         setPrice,
         setDescription,
         setFile,
-        getProductList
+        handleUpdate
     
     } = useContext(ProductContext);
 
@@ -25,30 +25,6 @@ const UpdateProductForm = () => {
         updateProductId(inputValueId);
     }, [])
 
- 
-
-/* update product function */
-const handleUpdate = async () => {
-    let data = {name, price,description, file_path};/* destructure */
-    
-    let result = await fetch(`http://localhost:8000/api/product/${params.id}`, {
-      method: "PUT",
-      body: JSON.stringify(data),
-      headers: {
-
-
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type, Authorization',
-        'Access-Control-Allow-Methods': '*',
-        "Content-Type": "application/json"
-    }
-    }).catch(function(error){
-      console.log(error.message)
-    })
-    result = await result.json();
-    alert(`Product ${params.id} updated`);
- 
-  }
       
     return (
         <div >
@@ -105,7 +81,7 @@ const handleUpdate = async () => {
                 <div className="md:flex md:items-center">
                     <div className="md:w-1/3"></div>
                     <div className="md:w-2/3">
-                        <button onClick={handleUpdate} className="btn-send" type="button" >
+                        <button onClick={() => handleUpdate(inputValueId)} className="btn-send" type="button" >
                             Add Product
                         </button>
                     </div>
