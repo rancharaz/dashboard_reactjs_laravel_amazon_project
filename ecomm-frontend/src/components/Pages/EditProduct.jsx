@@ -5,7 +5,7 @@ const EditProduct = () => {
   return (
     <div >
     <Header />
-    <div className="container mx-auto text-center mt-10">
+    <div className="container mx-auto text-center mt-10 h-screen">
       <h1>Edit Product</h1>
     </div>
   </div>

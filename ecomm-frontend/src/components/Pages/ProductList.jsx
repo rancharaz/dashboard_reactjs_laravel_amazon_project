@@ -14,7 +14,7 @@ const ProductList = () => {
   return (
     <div >
       <Header />
-      <div className="container mx-auto text-center   justify-center items-center mt-10">
+      <div className="container mx-auto text-center   justify-center items-center mt-10 h-screen">
         <ProductTable />
       </div>
     </div>

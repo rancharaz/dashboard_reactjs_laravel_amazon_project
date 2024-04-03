@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { notifyError } from '../Toasts/Toast';
 
 const RegisterForm = () => {
 
@@ -16,75 +17,73 @@ const RegisterForm = () => {
     })
 
     /* function to post data from form to database then navigate to addproductpage */
-       async function signUp(){
-                let item = {name, password, email};
+    async function signUp() {
+        try {
+            let item = { name,email, password };/* data in object */
+            let result = await fetch(`${process.env.REACT_APP_API_LOGIN_LINK}`, {
+                method: "POST",
+                mode: "cors",
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type, Authorization',
+                    'Access-Control-Allow-Methods': '*',
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(item), /* data string */
+            })
+            if (!result.ok) {
+                throw new Error("Network response was not OK");
+            }
+            result = await result.json();
+           /*  console.log(result) */
+            localStorage.setItem("user-info", JSON.stringify(result));
 
-                let result = await fetch(`${process.env.REACT_APP_API_REGISTER_LINK}`,
-                    {
-                        method: "POST",
-                        headers: {
-                            'Access-Control-Allow-Origin': '*',
-                            'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type, Authorization',
-                            'Access-Control-Allow-Methods': '*',
-                            "Content-Type": "application/json"
-                        },
-                        body:JSON.stringify(item)
-                    });
-                    result = await result.json();
-                    localStorage.setItem("user-info", JSON.stringify(result));
-                    navigate("/add-product")
+            navigate("/add-product");
+
         }
+        catch (error) {
+            console.error("There has been a problem with your fetch operation:", error);
+            notifyError('Credentials are not correct.')   
+        }
+    }
+
 
  
     return (
         <div>
-            <div className="mt-8"></div>
-            <h1>Register</h1>
-            <div className="mb-8"></div>
-            <form className="w-full max-w-sm">
-                <div className="md:flex md:items-center mb-6">
-                    <div className="md:w-1/3">
-                        <label className="block label-text" htmlFor="inline-full-name" >
-                            Name
-                        </label>
-                    </div>
-                    <div className="md:w-2/3">
-                        <input className="input-text" id="inline-full-name" type="text" onChange={(e) => setName(e.target.value)} />
-                    </div>
-                </div>
-                <div className="md:flex md:items-center mb-6">
-                    <div className="md:w-1/3">
-                        <label className="block label-text" htmlFor="inline-full-email" >
-                            Email
-                        </label>
-                    </div>
-                    <div className="md:w-2/3">
-                        <input className="input-text" id="inline-full-email" type="email" onChange={(e) => setEmail(e.target.value)}  />
-                    </div>
-                </div>
-                <div className="md:flex md:items-center mb-6">
-                    <div className="md:w-1/3">
-                        <label className="block label-text" htmlFor="inline-password">
-                            Password
-                        </label>
-                    </div>
-                    <div className="md:w-2/3">
-                        <input className="input-text" id="inline-password" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
-                    </div>
-                </div>
-                <div className="md:flex md:items-center mb-6">
-
-
-                </div>
-                <div className="md:flex md:items-center">
-                    <div className="md:w-1/3"></div>
-                    <div className="md:w-2/3">
-                        <button className="btn-send" type="button" onClick={signUp}>
-                            Sign Up
-                        </button>
-                    </div>
-                </div>
-            </form>
+        <div class="min-h-screen  py-6 flex flex-col justify-center sm:py-12">
+	<div class="relative py-3 sm:max-w-xl sm:mx-auto">
+		<div
+			class="absolute inset-0 bg-gradient-to-r from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl">
+		</div>
+		<div class="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
+			<div class="max-w-md mx-auto">
+				<div>
+					<h1 class="text-2xl font-semibold">Sign up Form</h1>
+				</div>
+				<div class="divide-y divide-gray-200">
+					<div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+						<div class="relative">
+							<input onChange={(e) => setName(e.target.value)} value={name} autocomplete="off" id="name" name="name" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Name" />
+							<label for="email" class="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Name</label>
+						</div>
+						<div class="relative">
+							<input onChange={(e) => setEmail(e.target.value)} value={email} autocomplete="off" id="email" name="email" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Email address" />
+							<label for="email" class="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Email Address</label>
+						</div>
+						<div class="relative">
+							<input onChange={(e) => setPassword(e.target.value)} value={password} autocomplete="off" id="password" name="password" type="password" class="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Password" />
+							<label for="password" class="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Password</label>
+						</div>
+						<div class="relative">
+							<button class="bg-blue-500 text-white rounded-md px-2 py-1" onClick={signUp}>Submit</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
         </div>
     )
 }

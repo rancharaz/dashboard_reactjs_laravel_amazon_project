@@ -4,6 +4,6 @@ export const ROUTES = {
     LoginPage: "/login",
     Register: "/register",
     EditProduct: "/edit-product",
-    ProductList: "/product-list",
+    ProductList: "/",
     SearchProduct: "/search-product"
 }

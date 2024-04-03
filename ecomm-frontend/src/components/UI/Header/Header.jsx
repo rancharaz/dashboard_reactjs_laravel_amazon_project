@@ -7,13 +7,15 @@ import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
 
-  const user = JSON.parse(localStorage.getItem('user-info'));
+  let user = JSON.parse(localStorage.getItem('user-info'));
   let navigate = useNavigate();
 
+  console.log(user)
   function logout() {
     localStorage.clear();
     navigate(`${ROUTES.Register}`)
   }
+ 
 
   return (
     <>
@@ -33,7 +35,7 @@ const Header = () => {
 
                     <Link to={ROUTES.SearchProduct}>{MENULIST.SearchProduct}</Link>
 
-                    <Link>Username: {user.name}</Link>
+                    <Link>Username: {user && user.name}</Link>
                     <Link to={ROUTES.Register} onClick={logout}>{MENULIST.Logout}</Link>
 
                   </>

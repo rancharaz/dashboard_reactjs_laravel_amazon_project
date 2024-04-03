@@ -7,7 +7,7 @@ const UpdateProduct = () => {
   return (
     <div >
     <Header />
-    <div className="container mx-auto text-center flex justify-center items-center mt-10">
+    <div className="container mx-auto text-center flex justify-center items-center mt-10 h-screen">
       <UpdateProductForm />
     </div>
   </div>
