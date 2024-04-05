@@ -5,29 +5,34 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
     //
-    public function register(Request $request){
+    public function register(Request $req){
         /* register function with validation */
-        $fields = $request->validate([
+        $fields = $req->validate([
             'name' => 'required|string',
-            'email' => 'required|string|',
-            'password'=> 'required|string'
+            'email' => 'required|string|unique:users,email',
+            'password' => 'required|string'
         ]);
 
-        /* create user */
         $user = User::create([
             'name' => $fields['name'],
             'email' => $fields['email'],
             'password' => bcrypt($fields['password'])
+
         ]);
-        /* token */
-        $response = [
-            'user' => $user
-        ];
-        return response($response, 201);
+        if(!$user){
+            return response([
+                'message' => 'Credentials are not correct.'
+            ], 401);
+        } else {
+          return  $user;
+        }
+
+
     }
     function login(Request $request){
         /* register function with validation */

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { notifyError } from '../Toasts/Toast';
 
+
 const RegisterForm = () => {
 
     const [name, setName] = useState("");
@@ -20,7 +21,7 @@ const RegisterForm = () => {
     async function signUp() {
         try {
             let item = { name,email, password };/* data in object */
-            let result = await fetch(`${process.env.REACT_APP_API_LOGIN_LINK}`, {
+            let result = await fetch(`${process.env.REACT_APP_API_REGISTER_LINK}`, {
                 method: "POST",
                 mode: "cors",
                 headers: {

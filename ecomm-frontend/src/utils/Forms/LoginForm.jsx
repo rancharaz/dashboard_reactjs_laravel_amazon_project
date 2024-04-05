@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { notifyError } from '../Toasts/Toast';
-
+import secureLocalStorage from 'react-secure-storage';
 
 const LoginForm = () => {
 
@@ -40,7 +40,7 @@ const LoginForm = () => {
             result = await result.json();
            /*  console.log(result) */
             localStorage.setItem("user-info", JSON.stringify(result));
-
+            console.log("login",result)
             navigate("/add-product");
 
         }

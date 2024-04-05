@@ -11,6 +11,9 @@ class ProductController extends Controller
         $product = new Product;
         $product->name=$req->input('name');
         $product->price=$req->input('price');
+        $product->buying_price=$req->input('buying_price');
+        $product->selling_price=$req->input('selling_price');
+
         $product->description=$req->input('description');
         $product->file_path=$req->file('file')->store('products');
         $product->save();
@@ -32,7 +35,6 @@ class ProductController extends Controller
     }
 
     public function getProduct($id){
-
             return Product::find($id);
         }
 

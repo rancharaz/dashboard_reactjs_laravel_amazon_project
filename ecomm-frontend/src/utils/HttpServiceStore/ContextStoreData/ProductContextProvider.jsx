@@ -10,6 +10,9 @@ const ProductContextProvider = (props) => {
     const [datas, setData] = useState([]);
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
+    const [buying_price, setBuying_price] = useState("");
+    const [selling_price, setSelling_price] = useState("");
+
     const [description, setDescription] = useState("");
     const [file_path, setFile] = useState();
 
@@ -22,14 +25,7 @@ const ProductContextProvider = (props) => {
         getProductList()
 
     }, [])
-
-    useEffect(() => {
-        updateProductId()
-
-    }, [])
-
-
-
+ 
 
     /* get Data function */
     async function getProductList() {
@@ -46,6 +42,8 @@ const ProductContextProvider = (props) => {
         formData.append("file", file_path);
         formData.append("name", name);
         formData.append("price", price);
+        formData.append("buying_price", buying_price);
+        formData.append("selling_price", selling_price);
         formData.append("description", description);
 
         let result = await axios.post(`${process.env.REACT_APP_API_ADD_LINK}`, formData)
@@ -136,6 +134,8 @@ const ProductContextProvider = (props) => {
         description,
         file_path,
         searchDatas,
+        setBuying_price,
+        setSelling_price,
         setSearchDatas,
         search,
         addProduct
