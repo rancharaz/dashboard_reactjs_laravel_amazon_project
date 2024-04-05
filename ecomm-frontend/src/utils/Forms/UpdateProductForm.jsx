@@ -82,7 +82,7 @@ const UpdateProductForm = () => {
                     <div className="md:w-1/3"></div>
                     <div className="md:w-2/3">
                         <button onClick={() => handleUpdate(inputValueId)} className="btn-send" type="button" >
-                            Add Product
+                            Update Product
                         </button>
                     </div>
                 </div>

@@ -2,6 +2,7 @@ import React, { useState, createContext, useEffect } from 'react'
 import { notifyError, notifySuccess } from '../../Toasts/Toast';
 import { useParams } from 'react-router-dom'
 import axios from 'axios';
+import ConfirmBox from '../../LoaderConfirmbox/ConfirmBox';
 
 export const ProductContext = createContext()
 
@@ -25,7 +26,14 @@ const ProductContextProvider = (props) => {
         getProductList()
 
     }, [])
- 
+
+    useEffect(() => {
+        updateProductId()
+
+    }, [])
+
+
+
 
     /* get Data function */
     async function getProductList() {
@@ -102,7 +110,7 @@ const ProductContextProvider = (props) => {
           console.log(error.message)
         })
         result = await result.json();
-        alert(`Product ${inputValueId} updated`);
+        notifySuccess(`Product id: ${result.id} and Name: ${result.name} updated`);
      
       }
 
