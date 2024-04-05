@@ -4,7 +4,8 @@ import { ProductContext } from '../HttpServiceStore/ContextStoreData/ProductCont
 
 const AddProductForm = () => {
 
-    const { addProduct, setName, setPrice, setDescription, setFile, } = useContext(ProductContext);
+    const { addProduct, setName, setPrice, setDescription, setFile, setBuying_price,
+        setSelling_price } = useContext(ProductContext);
 
     return (
         <div>
@@ -50,6 +51,26 @@ const AddProductForm = () => {
                     </div>
                     <div className="md:w-2/3">
                         <input className="input-text" id="inline-description" type="text" placeholder="Price" onChange={(e) => setPrice(e.target.value)} />
+                    </div>
+                </div>
+                <div className="md:flex md:items-center mb-6">
+                    <div className="md:w-1/3">
+                        <label className="block label-text" htmlFor="inline-price">
+                        Buying Price
+                        </label>
+                    </div>
+                    <div className="md:w-2/3">
+                        <input className="input-text" id="inline-description" type="text" placeholder="Buying Price" onChange={(e) => setBuying_price(e.target.value)} />
+                    </div>
+                </div>
+                <div className="md:flex md:items-center mb-6">
+                    <div className="md:w-1/3">
+                        <label className="block label-text" htmlFor="inline-price">
+                        Selling Price
+                        </label>
+                    </div>
+                    <div className="md:w-2/3">
+                        <input className="input-text" id="inline-description" type="text" placeholder="Selling Price" onChange={(e) => setSelling_price(e.target.value)} />
                     </div>
                 </div>
                 <div className="md:flex md:items-center mb-6">
