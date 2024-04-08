@@ -2,7 +2,7 @@ import React, { useState, createContext, useEffect } from 'react'
 import { notifyError, notifySuccess } from '../../Toasts/Toast';
 import { useParams } from 'react-router-dom'
 import axios from 'axios';
-import ConfirmBox from '../../LoaderConfirmbox/ConfirmBox';
+
 
 export const ProductContext = createContext()
 
@@ -70,10 +70,9 @@ const ProductContextProvider = (props) => {
     async function deleteAction(id) {
         let result = await fetch(`${process.env.REACT_APP_API_DELETE_PRODUCT}/` + id, {
             method: "delete"
-        });
+        })
         result = await result.json();
-        console.log(result)
-        notifyError()
+        notifyError(`Product has been deleted.`)
         getProductList()
     }
 
@@ -94,25 +93,25 @@ const ProductContextProvider = (props) => {
 
 
     /* updated function */
-    async function handleUpdate(inputValueId){
-        let data = {name, price,description, file_path};/* destructure */
-        
+    async function handleUpdate(inputValueId) {
+        let data = { name, price, description, file_path };/* destructure */
+
         let result = await fetch(`http://localhost:8000/api/product/${inputValueId}`, {
-          method: "PUT",
-          body: JSON.stringify(data),
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type, Authorization',
-            'Access-Control-Allow-Methods': '*',
-            "Content-Type": "application/json"
-        }
-        }).catch(function(error){
-          console.log(error.message)
+            method: "PUT",
+            body: JSON.stringify(data),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type, Authorization',
+                'Access-Control-Allow-Methods': '*',
+                "Content-Type": "application/json"
+            }
+        }).catch(function (error) {
+            console.log(error.message)
         })
         result = await result.json();
         notifySuccess(`Product id: ${result.id} and Name: ${result.name} updated`);
-     
-      }
+
+    }
 
 
     /* search by key */

@@ -1,23 +1,28 @@
+/* eslint-disable no-lone-blocks */
 import React, { useContext, useState } from 'react'
 import { ProductContext } from '../HttpServiceStore/ContextStoreData/ProductContextProvider'
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../Routes/RouterConfig';
-import { notifySuccess } from '../Toasts/Toast';
-import ConfirmBox from '../LoaderConfirmbox/ConfirmBox';
+import { createPortal } from "react-dom";
+import { Modal } from '../LoaderConfirmbox/Modal';
 
 const ProductTable = () => {
 
     const { datas, deleteAction } = useContext(ProductContext);
-    const [open, setOpen] = useState(false);
     const [modal, setModal] = useState(false);
     const [deleteData, setDeleteData] = useState({});
-  
+    const [modalOpen, setModalOpen] = useState(false);
+    const [message, setMessage] = useState("");
+
     const toggleModal = (id) => {
-        setModal(!modal);
         setDeleteData(id);
 
-      };
-
+    };
+    const handleButtonClick = (value) => {
+        setModalOpen(false);
+        setMessage(value);
+    };
+ 
     return (
         <div>
             <h1 className='mb-8'>Product list</h1>
@@ -37,7 +42,6 @@ const ProductTable = () => {
                     {
                         datas && datas.map(data => {
                             const { id, name, file_path, description, price, buying_price, selling_price } = data;
-                            console.log(data)
                             return (
                                 <tr key={id} className='group cursor-pointer hover:bg-gray-100'>
                                     <td className='table-content'>{id}</td>
@@ -54,7 +58,12 @@ const ProductTable = () => {
                                     <td className='table-content'>{selling_price}</td>
 
 
-                                    <td> <button onClick={() => toggleModal(id)} className='btn-error'>Delete</button></td>
+                                    <td> 
+                                    <button onClick={() => {{
+                                         setModalOpen(true)
+                                         toggleModal(id)
+                                    }}} className='btn-error'>Delete</button>
+                                    </td>
                                     <td>
                                         <Link to={`${ROUTES.UpdateProduct}/${id}`}>
                                             <button className='btn-success'>Update</button>
@@ -64,11 +73,25 @@ const ProductTable = () => {
                                 </tr>
                             )
                         })
-                        
+
                     }
                 </tbody>
-               {modal && <ConfirmBox productId={deleteData}  open={open}  closeDialog={() => setOpen(false)} />}   
+                <>
+                    {message}
 
+                    {modalOpen &&
+                        createPortal(
+                            <Modal
+                            productId={deleteData}
+                                closeModal={handleButtonClick}
+                                onSubmit={handleButtonClick}
+                                onCancel={handleButtonClick}
+                            >
+                                 
+                            </Modal>,
+                            document.body
+                        )}
+                </>
             </table>
         </div>
     )
