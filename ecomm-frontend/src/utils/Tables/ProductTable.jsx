@@ -4,7 +4,7 @@ import { ProductContext } from '../HttpServiceStore/ContextStoreData/ProductCont
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../Routes/RouterConfig';
 import { createPortal } from "react-dom";
-import { Modal } from '../LoaderConfirmbox/Modal';
+import { Modal } from '../LoaderModal/Modal';
 
 const ProductTable = () => {
 
@@ -34,7 +34,10 @@ const ProductTable = () => {
                         <th className='table-title'>Image</th>
                         <th className='table-title'>Description</th>
                         <th className='table-title'>Price</th>
+                        <th className='table-title'>Buying Price</th>
+                        <th className='table-title'>Selling Price</th>
                         <th className='table-title'>Action</th>
+                        <th className='table-title'></th>
 
                     </tr>
                 </thead>
@@ -54,10 +57,7 @@ const ProductTable = () => {
                                     <td className='table-content'>{description}</td>
                                     <td className='table-content'>{price}</td>
                                     <td className='table-content'>{buying_price}</td>
-                                    <td className='table-content'>{buying_price}</td>
                                     <td className='table-content'>{selling_price}</td>
-
-
                                     <td> 
                                     <button onClick={() => {{
                                          setModalOpen(true)

@@ -34,6 +34,7 @@ class UserController extends Controller
 
 
     }
+
     function login(Request $request){
         /* register function with validation */
         $fields = $request->validate([
@@ -51,5 +52,9 @@ class UserController extends Controller
               return  $user;
             }
     }
+    public function getUser(){
+        return User::all();
+    }
 
 }
+

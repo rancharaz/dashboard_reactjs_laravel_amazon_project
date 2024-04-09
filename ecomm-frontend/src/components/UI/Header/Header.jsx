@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import { MENULIST } from '../../../utils/ListConfigItems/MenuListConfig';
 import { ROUTES } from '../../../utils/Routes/RouterConfig';
 import { useNavigate } from 'react-router-dom';
+import  secureLocalStorage  from  "react-secure-storage";
 
 
 const Header = () => {
 
-  let user = JSON.parse(localStorage.getItem('user-info'));
+  let user = JSON.parse(secureLocalStorage.getItem('user-auth'));
   let navigate = useNavigate();
 
   console.log(user)
@@ -28,14 +29,14 @@ const Header = () => {
             <ul className='flex gap-6'>
               {/* if userinfo true show add and update page else show login... */}
               {
-                localStorage.getItem('user-info') ?
+                secureLocalStorage.getItem('user-auth') ?
                   <>
                     <Link to={ROUTES.ProductList}>{MENULIST.ProductList}</Link>
                     <Link to={ROUTES.AddProduct}>{MENULIST.AddProduct}</Link>
 
                     <Link to={ROUTES.SearchProduct}>{MENULIST.SearchProduct}</Link>
 
-                    <Link>Username: {user && user.name}</Link>
+                    <Link>Username: {user && user.data.name}</Link>
                     <Link to={ROUTES.Register} onClick={logout}>{MENULIST.Logout}</Link>
 
                   </>

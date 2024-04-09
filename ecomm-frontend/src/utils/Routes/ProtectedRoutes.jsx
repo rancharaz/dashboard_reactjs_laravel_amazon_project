@@ -1,13 +1,14 @@
 import React from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 import { ROUTES } from './RouterConfig'
+import  secureLocalStorage  from  "react-secure-storage";
 
 const ProtectedRoute = () => {
 
-    const auth = localStorage.getItem("user-info");
-    /* if user true go on pages else return on register */
-    return auth ? <Outlet /> : <Navigate to={ROUTES.Register} />
+    const auth = secureLocalStorage.getItem("user-auth");
 
+    return auth ? <Outlet /> : <Navigate to={ROUTES.Register} />
+    /* if user true go on pages else return on register */
 }
 
 export default ProtectedRoute
