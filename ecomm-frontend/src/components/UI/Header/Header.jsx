@@ -11,7 +11,7 @@ const Header = () => {
   let user = JSON.parse(secureLocalStorage.getItem('user-auth'));
   let navigate = useNavigate();
 
-  console.log(user)
+ 
   function logout() {
     localStorage.clear();
     navigate(`${ROUTES.Register}`)

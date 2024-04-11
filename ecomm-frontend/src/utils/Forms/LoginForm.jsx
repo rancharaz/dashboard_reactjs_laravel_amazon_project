@@ -36,7 +36,9 @@ const LoginForm = () => {
 
         const login = await http.post('/api/login', {
             email,
-            password
+            password,
+            
+
         })
         console.log('login', login);
 

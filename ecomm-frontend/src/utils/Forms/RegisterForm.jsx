@@ -8,6 +8,8 @@ const RegisterForm = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [auth_user, SetAuth_user] = useState("");
+
     let navigate = useNavigate();
 
     /* if data user data true navigate to add product */
@@ -20,7 +22,7 @@ const RegisterForm = () => {
     /* function to post data from form to database then navigate to addproductpage */
     async function signUp() {
         try {
-            let item = { name,email, password };/* data in object */
+            let item = { name,email, password, auth_user};/* data in object */
             let result = await fetch(`${process.env.REACT_APP_API_REGISTER_LINK}`, {
                 method: "POST",
                 mode: "cors",
@@ -36,6 +38,7 @@ const RegisterForm = () => {
                 throw new Error("Network response was not OK");
             }
             result = await result.json();
+            console.log(result)
            /*  console.log(result) */
             localStorage.setItem("user-info", JSON.stringify(result));
 
@@ -51,7 +54,7 @@ const RegisterForm = () => {
 
  
     return (
-        <div>
+        <div> 
         <div class="min-h-screen  py-6 flex flex-col justify-center sm:py-12">
 	<div class="relative py-3 sm:max-w-xl sm:mx-auto">
 		<div
@@ -71,6 +74,10 @@ const RegisterForm = () => {
 						<div class="relative">
 							<input onChange={(e) => setEmail(e.target.value)} value={email} autocomplete="off" id="email" name="email" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Email address" />
 							<label for="email" class="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Email Address</label>
+						</div>
+                        <div class="relative">
+							<input onChange={(e) => SetAuth_user(e.target.value)} value={auth_user} autocomplete="off" id="email" name="email" type="text" class="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Usertype" />
+							<label for="email" class="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Usertype</label>
 						</div>
 						<div class="relative">
 							<input onChange={(e) => setPassword(e.target.value)} value={password} autocomplete="off" id="password" name="password" type="password" class="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Password" />

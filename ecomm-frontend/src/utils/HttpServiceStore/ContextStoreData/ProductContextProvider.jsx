@@ -18,6 +18,7 @@ const ProductContextProvider = (props) => {
     const [file_path, setFile] = useState();
 
     const [searchDatas, setSearchDatas] = useState([]);
+    const [joinDatas, setJoinDatas] = useState();
 
     const params = useParams();
 
@@ -29,7 +30,7 @@ const ProductContextProvider = (props) => {
 
     useEffect(() => {
         updateProductId()
-
+        joinData()
     }, [])
 
 
@@ -124,6 +125,11 @@ const ProductContextProvider = (props) => {
         setSearchDatas(result)
     }
 
+    async function joinData(){
+        let result = await fetch(`http://localhost:8000/api/show-join`);
+        result = await result.json();
+        setJoinDatas(result)
+    }
 
 
 
@@ -147,7 +153,8 @@ const ProductContextProvider = (props) => {
         setSelling_price,
         setSearchDatas,
         search,
-        addProduct
+        addProduct,
+        joinDatas
     }
     /* return value */
     return (

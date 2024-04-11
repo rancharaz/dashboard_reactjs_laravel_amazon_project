@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'auth_user'
     ];
 
     public $timestamps=false; /* updated at etc bypass on database table */

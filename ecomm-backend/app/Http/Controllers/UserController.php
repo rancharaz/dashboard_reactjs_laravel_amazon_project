@@ -15,12 +15,14 @@ class UserController extends Controller
         $fields = $req->validate([
             'name' => 'required|string',
             'email' => 'required|string|unique:users,email',
+            'auth_user' => 'required|string|unique:users,auth_user',
             'password' => 'required|string'
         ]);
 
         $user = User::create([
             'name' => $fields['name'],
             'email' => $fields['email'],
+            'auth_user' => $fields['auth_user'],
             'password' => bcrypt($fields['password'])
 
         ]);

@@ -1,18 +1,26 @@
 /* eslint-disable no-lone-blocks */
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ProductContext } from '../HttpServiceStore/ContextStoreData/ProductContextProvider'
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../Routes/RouterConfig';
 import { createPortal } from "react-dom";
 import { Modal } from '../LoaderModal/Modal';
+import secureLocalStorage from "react-secure-storage";
 
 const ProductTable = () => {
 
-    const { datas, deleteAction } = useContext(ProductContext);
+    const { datas, deleteAction, joinDatas } = useContext(ProductContext);
     const [modal, setModal] = useState(false);
     const [deleteData, setDeleteData] = useState({});
     const [modalOpen, setModalOpen] = useState(false);
     const [message, setMessage] = useState("");
+    let user = JSON.parse(secureLocalStorage.getItem('user-auth'));
+    /*     let dataUsers = JSON.stringify(joinDatas); */
+
+    /* let mixDatas = JSON.stringify(joinDatas) */
+
+
+
 
     const toggleModal = (id) => {
         setDeleteData(id);
@@ -22,9 +30,23 @@ const ProductTable = () => {
         setModalOpen(false);
         setMessage(value);
     };
- 
+
+
+
+
+
+
+
     return (
+
         <div>
+
+            <h2>
+
+
+
+
+            </h2>
             <h1 className='mb-8'>Product list</h1>
             <table className="table ">
                 <thead>
@@ -45,33 +67,81 @@ const ProductTable = () => {
                     {
                         datas && datas.map(data => {
                             const { id, name, file_path, description, price, buying_price, selling_price } = data;
-                            return (
-                                <tr key={id} className='group cursor-pointer hover:bg-gray-100'>
-                                    <td className='table-content'>{id}</td>
-                                    <td className='table-content'>{name}</td>
-                                    <td className='table-content'>
-                                        <Link to={`${process.env.REACT_APP_API_URL}` + data.file_path} target='_blank'>
-                                            <img src={`${process.env.REACT_APP_API_URL}` + data.file_path} alt="" className='w-14' />
-                                        </Link>
-                                    </td>
-                                    <td className='table-content'>{description}</td>
-                                    <td className='table-content'>{price}</td>
-                                    <td className='table-content'>{buying_price}</td>
-                                    <td className='table-content'>{selling_price}</td>
-                                    <td> 
-                                    <button onClick={() => {{
-                                         setModalOpen(true)
-                                         toggleModal(id)
-                                    }}} className='btn-error'>Delete</button>
-                                    </td>
-                                    <td>
-                                        <Link to={`${ROUTES.UpdateProduct}/${id}`}>
-                                            <button className='btn-success'>Update</button>
-                                        </Link>
-                                    </td>
 
-                                </tr>
+                            return (
+
+                                <>
+
+                                    {(() => {
+                                        switch (user.data.id) {
+                                            case id:
+                                                return <> 
+                                                  <tr key={id} className='group cursor-pointer hover:bg-gray-100'>
+                                                                <td className='table-content'>{id}</td>
+                                                                <td className='table-content'>{name}</td>
+                                                                <td className='table-content'>
+                                                                    <Link to={`${process.env.REACT_APP_API_URL}` + data.file_path} target='_blank'>
+                                                                        <img src={`${process.env.REACT_APP_API_URL}` + data.file_path} alt="" className='w-14' />
+                                                                    </Link>
+                                                                </td>
+                                                                <td className='table-content'>{description}</td>
+                                                                <td className='table-content'>{price}</td>
+                                                                <td className='table-content'>{buying_price}</td>
+                                                                <td className='table-content'>{selling_price}</td>
+                                                                <td> 
+                                                                <button onClick={() => {{
+                                                                     setModalOpen(true)
+                                                                     toggleModal(id)
+                                                                }}} className='btn-error'>Delete</button>
+                                                                </td>
+                                                                <td>
+                                                                    <Link to={`${ROUTES.UpdateProduct}/${id}`}>
+                                                                        <button className='btn-success'>Update</button>
+                                                                    </Link>
+                                                                </td>
+                            
+                                                            </tr>
+
+                                                 </>
+ 
+                                            default:
+                                                return null
+                                        }
+                                    })()}
+                                </>
                             )
+
+
+
+
+
+                            /*                             return (
+                                                            <tr key={id} className='group cursor-pointer hover:bg-gray-100'>
+                                                                <td className='table-content'>{id}</td>
+                                                                <td className='table-content'>{name}</td>
+                                                                <td className='table-content'>
+                                                                    <Link to={`${process.env.REACT_APP_API_URL}` + data.file_path} target='_blank'>
+                                                                        <img src={`${process.env.REACT_APP_API_URL}` + data.file_path} alt="" className='w-14' />
+                                                                    </Link>
+                                                                </td>
+                                                                <td className='table-content'>{description}</td>
+                                                                <td className='table-content'>{price}</td>
+                                                                <td className='table-content'>{buying_price}</td>
+                                                                <td className='table-content'>{selling_price}</td>
+                                                                <td> 
+                                                                <button onClick={() => {{
+                                                                     setModalOpen(true)
+                                                                     toggleModal(id)
+                                                                }}} className='btn-error'>Delete</button>
+                                                                </td>
+                                                                <td>
+                                                                    <Link to={`${ROUTES.UpdateProduct}/${id}`}>
+                                                                        <button className='btn-success'>Update</button>
+                                                                    </Link>
+                                                                </td>
+                            
+                                                            </tr>
+                                                        ) */
                         })
 
                     }
@@ -82,12 +152,12 @@ const ProductTable = () => {
                     {modalOpen &&
                         createPortal(
                             <Modal
-                            productId={deleteData}
+                                productId={deleteData}
                                 closeModal={handleButtonClick}
                                 onSubmit={handleButtonClick}
                                 onCancel={handleButtonClick}
                             >
-                                 
+
                             </Modal>,
                             document.body
                         )}
