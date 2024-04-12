@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserProductController;
+use App\Http\Controllers\ProductModelsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
-Route::get('/get-user', [UserController::class, 'getUser']);
+/* Route::get('/get-user', [UserController::class, 'getUser']);
+ */
 
 
 Route::post('/add-product', [ProductController::class, 'addProduct']);
@@ -36,3 +38,5 @@ Route::get('/search-product/{key}', [ProductController::class, 'search']);
 /* testing */
 
 Route::get('/show-join', [UserProductController::class, 'showProduct']);
+Route::get('/show-id/{id}', [UserController::class, 'show_id']);
+Route::get('/get-user', [UserController::class, 'getUser']);

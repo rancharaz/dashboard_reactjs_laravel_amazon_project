@@ -15,8 +15,8 @@ class UserController extends Controller
         $fields = $req->validate([
             'name' => 'required|string',
             'email' => 'required|string|unique:users,email',
-            'auth_user' => 'required|string|unique:users,auth_user',
-            'password' => 'required|string'
+            'auth_user' => ' string|unique:users,auth_user',
+            'password' => 'string'
         ]);
 
         $user = User::create([
@@ -56,6 +56,11 @@ class UserController extends Controller
     }
     public function getUser(){
         return User::all();
+    }
+    public function show_id($id){
+        $products =  User::find($id);
+        return $products;
+
     }
 
 }
