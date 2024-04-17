@@ -21,7 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'auth_user'
+        'product_id',
+        'user_id'
+
     ];
 
     public $timestamps=false; /* updated at etc bypass on database table */
@@ -44,7 +46,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function ProductModels(){
-        return $this->hasMany(ProductModels::class);
+    public function product()
+    {
+        /* return $this->belongsTo(Product::class); */
+        return $this->hasMany(Product::class, 'user_id', 'id');
+
     }
+
 }

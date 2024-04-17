@@ -13,6 +13,14 @@ class Product extends Model
         'name',
         'file_path',
         'description',
-        'price'
+        'price',
+        'user_id',
+        'product_id'
+
     ];
+
+    public function user()
+    {
+        return $this->hasMany(User::class, 'product_id', 'id');
+    }
 }

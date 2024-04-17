@@ -4,26 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Product;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
     //
-    public function register(Request $req){
+    public function register(Request $request){
         /* register function with validation */
-        $fields = $req->validate([
+        $fields = $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|unique:users,email',
-            'auth_user' => ' string|unique:users,auth_user',
-            'password' => 'string'
+            'password' => 'string',
+            'product_id'=>'nullable',
+            'user_id'=>'nullable'
         ]);
 
         $user = User::create([
             'name' => $fields['name'],
             'email' => $fields['email'],
-            'auth_user' => $fields['auth_user'],
-            'password' => bcrypt($fields['password'])
+            'password' => bcrypt($fields['password']),
+
 
         ]);
         if(!$user){
@@ -41,7 +43,8 @@ class UserController extends Controller
         /* register function with validation */
         $fields = $request->validate([
             'email' => 'required|string',
-            'password'=> 'required|string'
+            'password'=> 'required|string',
+            'product_id'=>'nullable'
         ]);
         /* search for the email that is first */
         $user = User::where('email', $fields['email'])->first();
@@ -54,6 +57,7 @@ class UserController extends Controller
               return  $user;
             }
     }
+
     public function getUser(){
         return User::all();
     }
@@ -63,5 +67,25 @@ class UserController extends Controller
 
     }
 
+
+    public function addUserproduct(){
+
+
+        $user = User::where('email')->first();
+        return $user;
+    }
+
+
+
+
+    public function getUserJoinData(Request $request)
+    {
+        $user = User::with('product')->get();
+        $products = Product::with('user')->get();
+
+        return $user;
+
+
+    }
 }
 

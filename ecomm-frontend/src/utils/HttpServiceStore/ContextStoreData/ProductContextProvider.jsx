@@ -30,7 +30,7 @@ const ProductContextProvider = (props) => {
 
     useEffect(() => {
         updateProductId()
-        joinData()
+ 
     }, [])
 
 
@@ -125,13 +125,7 @@ const ProductContextProvider = (props) => {
         setSearchDatas(result)
     }
 
-    async function joinData(){
-        let result = await fetch(`http://localhost:8000/api/show-join`);
-        result = await result.json();
-        setJoinDatas(result)
-    }
-
-
+ 
 
     /* variable to export */
     const value = {
@@ -154,7 +148,7 @@ const ProductContextProvider = (props) => {
         setSearchDatas,
         search,
         addProduct,
-        joinDatas
+
     }
     /* return value */
     return (

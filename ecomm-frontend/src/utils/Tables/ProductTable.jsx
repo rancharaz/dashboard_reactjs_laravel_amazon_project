@@ -9,17 +9,20 @@ import secureLocalStorage from "react-secure-storage";
 
 const ProductTable = () => {
 
-    const { datas, deleteAction, joinDatas } = useContext(ProductContext);
+    const { datas, deleteAction,  } = useContext(ProductContext);
     const [modal, setModal] = useState(false);
     const [deleteData, setDeleteData] = useState({});
     const [modalOpen, setModalOpen] = useState(false);
     const [message, setMessage] = useState("");
+    const [userProducts, setUserProducts] = useState([]);
+
     let user = JSON.parse(secureLocalStorage.getItem('user-auth'));
     /*     let dataUsers = JSON.stringify(joinDatas); */
 
     /* let mixDatas = JSON.stringify(joinDatas) */
 
 
+    console.log("UserID",user.data.id)
 
 
     const toggleModal = (id) => {
@@ -31,9 +34,20 @@ const ProductTable = () => {
         setMessage(value);
     };
 
+    async function getData() {
+        let result = await fetch(`http://localhost:8000/api/data-user`);
+        result = await result.json();
+        setUserProducts(result);
+        console.log("RESULT",result)
+ 
+    }
 
+    useEffect(() => {
+        getData()
+    },[])
+  
 
-
+ 
 
 
 
@@ -41,13 +55,10 @@ const ProductTable = () => {
 
         <div>
 
-            <h2>
-
-
-
-
-            </h2>
-            <h1 className='mb-8'>Product list</h1>
+ 
+   
+           
+            <h1 className='mb-8'>Product list    </h1>
             <table className="table ">
                 <thead>
                     <tr>
@@ -65,23 +76,33 @@ const ProductTable = () => {
                 </thead>
                 <tbody className='align-baseline'>
                     {
-                        datas && datas.map(data => {
-                            const { id, name, file_path, description, price, buying_price, selling_price } = data;
+                        userProducts && userProducts.map(data => {
+                            const { id, name, email } = data;
 
-/*                             return (
+                            return (
 
                                 <>
+                               
 
                                     {(() => {
                                         switch (user.data.id) {
                                             case id:
                                                 return <> 
-                                                    <h1> id : {id}</h1>
-                                                    <h1> name : {name}</h1>
-                                                    <h1> description : {description}</h1>
-                                                    <h1> price : {price}</h1>
-                                                    <h1> buying price : {buying_price}</h1>
-                                                    <h1> selling price : {selling_price}</h1>
+                                                     
+                                            
+                                                    <h1> {data.product.map(item => {
+                                                       return(
+                                                        <>
+                                                        <h1>Name: {item.name}</h1>
+                                                        <h1>Description: {item.description}</h1>
+                                                        <h1>Buying price: {item.buying_price}</h1>
+                                                        <h1>Selling price: {item.selling_price}</h1>
+
+                                                        </>
+                                                        
+                                                       )
+                                                    })}</h1>
+                                                    
 
                                                  </>
  
@@ -90,13 +111,13 @@ const ProductTable = () => {
                                         }
                                     })()}
                                 </>
-                            ) */
+                            )
 
 
 
 
 
-                                                        return (
+/*                                                         return (
                                                             <tr key={id} className='group cursor-pointer hover:bg-gray-100'>
                                                                 <td className='table-content'>{id}</td>
                                                                 <td className='table-content'>{name}</td>
@@ -122,7 +143,7 @@ const ProductTable = () => {
                                                                 </td>
                             
                                                             </tr>
-                                                        )
+                                                        ) */
                         })
 
                     }
