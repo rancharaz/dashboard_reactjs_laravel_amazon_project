@@ -70,12 +70,9 @@ class UserController extends Controller
 
     public function addUserproduct(){
 
-
         $user = User::where('email')->first();
         return $user;
     }
-
-
 
 
     public function getUserJoinData(Request $request)

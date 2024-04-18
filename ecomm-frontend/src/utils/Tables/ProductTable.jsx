@@ -105,12 +105,12 @@ const ProductTable = () => {
                                                                         <button onClick={() => {
                                                                             {
                                                                                 setModalOpen(true)
-                                                                                toggleModal(id)
+                                                                                toggleModal(item.id)
                                                                             }
                                                                         }} className='btn-error'>Delete</button>
                                                                     </td>
                                                                     <td>
-                                                                        <Link to={`${ROUTES.UpdateProduct}/${id}`}>
+                                                                        <Link to={`${ROUTES.UpdateProduct}/${item.id}`}>
                                                                             <button className='btn-success'>Update</button>
                                                                         </Link>
                                                                     </td>

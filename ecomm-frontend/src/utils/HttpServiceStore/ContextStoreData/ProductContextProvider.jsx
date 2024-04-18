@@ -16,6 +16,7 @@ const ProductContextProvider = (props) => {
     const [price, setPrice] = useState("");
     const [buying_price, setBuying_price] = useState("");
     const [selling_price, setSelling_price] = useState("");
+ 
 
     const [description, setDescription] = useState("");
     const [file_path, setFile] = useState();
@@ -39,10 +40,12 @@ const ProductContextProvider = (props) => {
 
 
 
+ 
+
     /* user */
     let user = JSON.parse(secureLocalStorage.getItem('user-auth'));
-    let user_id =  user.data.id;
-
+ 
+  
     useEffect(() => {
         if (!user) {
             navigate("/register")
@@ -60,9 +63,10 @@ const ProductContextProvider = (props) => {
 
 
     /* add product  */
-    async function addProduct() {
+    async function addProduct(user_id) {
+        console.log(user_id)
         const formData = new FormData();
-/*         formData.append("user_id", user_id); */
+        formData.append("user_id", user_id);
         formData.append("file", file_path);
         formData.append("name", name);
         formData.append("price", price);
@@ -102,6 +106,9 @@ const ProductContextProvider = (props) => {
         setPrice(result.price);
         setDescription(result.description)
         setFile(result.file_path)
+        setSelling_price(result.selling_price)
+        setBuying_price(result.buying_price)
+
         console.log("result", result)
         console.log(file_path)
     }
@@ -110,7 +117,8 @@ const ProductContextProvider = (props) => {
 
     /* updated function */
     async function handleUpdate(inputValueId) {
-        let data = { name, price, description, file_path };/* destructure */
+        console.log("sell",selling_price)
+        let data = { name, price, description, file_path, buying_price, selling_price};/* destructure */
 
         let result = await fetch(`http://localhost:8000/api/product/${inputValueId}`, {
             method: "PUT",
@@ -156,11 +164,14 @@ const ProductContextProvider = (props) => {
         description,
         file_path,
         searchDatas,
+        buying_price,
+        selling_price,
         setBuying_price,
         setSelling_price,
         setSearchDatas,
         search,
         addProduct,
+ 
 
     }
     /* return value */

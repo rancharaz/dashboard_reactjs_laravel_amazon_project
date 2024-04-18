@@ -1,11 +1,16 @@
 import React, { useContext } from 'react'
 import { ProductContext } from '../HttpServiceStore/ContextStoreData/ProductContextProvider';
+import secureLocalStorage from "react-secure-storage";
 
 
 const AddProductForm = () => {
 
+    let user = JSON.parse(secureLocalStorage.getItem('user-auth'));
+    let user_id = user.data.id;
     const { addProduct, setName, setPrice, setDescription, setFile, setBuying_price,
         setSelling_price } = useContext(ProductContext);
+
+    
 
     return (
         <div>
@@ -13,6 +18,16 @@ const AddProductForm = () => {
             <h1>Add Product</h1>
             <div className="mb-8"></div>
             <form className="w-full max-w-sm">
+            <div className="md:flex md:items-center mb-6">
+                    <div className="md:w-1/3">
+                        <label className="block label-text" htmlFor="inline-full-name" >
+                            User ID
+                        </label>
+                    </div>
+                    <div className="md:w-2/3">
+                        <input className="input-text" id="inline-full-name" type="text" value={user_id}    disabled />
+                    </div>
+                </div>
                 <div className="md:flex md:items-center mb-6">
                     <div className="md:w-1/3">
                         <label className="block label-text" htmlFor="inline-full-name" >
@@ -56,7 +71,7 @@ const AddProductForm = () => {
                 <div className="md:flex md:items-center mb-6">
                     <div className="md:w-1/3">
                         <label className="block label-text" htmlFor="inline-price">
-                        Buying Price
+                            Buying Price
                         </label>
                     </div>
                     <div className="md:w-2/3">
@@ -66,7 +81,7 @@ const AddProductForm = () => {
                 <div className="md:flex md:items-center mb-6">
                     <div className="md:w-1/3">
                         <label className="block label-text" htmlFor="inline-price">
-                        Selling Price
+                            Selling Price
                         </label>
                     </div>
                     <div className="md:w-2/3">
@@ -80,7 +95,7 @@ const AddProductForm = () => {
                 <div className="md:flex md:items-center">
                     <div className="md:w-1/3"></div>
                     <div className="md:w-2/3">
-                        <button className="btn-send" type="button" onClick={addProduct}>
+                        <button className="btn-send" type="button" onClick={() => addProduct(user_id)}>
                             Add Product
                         </button>
                     </div>

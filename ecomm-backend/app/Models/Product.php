@@ -15,7 +15,9 @@ class Product extends Model
         'description',
         'price',
         'user_id',
-        'product_id'
+        'product_id',
+        'buying_price',
+        'selling_price'
 
     ];
 
