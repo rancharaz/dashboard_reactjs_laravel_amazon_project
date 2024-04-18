@@ -2,6 +2,9 @@ import React, { useState, createContext, useEffect } from 'react'
 import { notifyError, notifySuccess } from '../../Toasts/Toast';
 import { useParams } from 'react-router-dom'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+import secureLocalStorage from "react-secure-storage";
 
 
 export const ProductContext = createContext()
@@ -16,6 +19,7 @@ const ProductContextProvider = (props) => {
 
     const [description, setDescription] = useState("");
     const [file_path, setFile] = useState();
+    let navigate = useNavigate();
 
     const [searchDatas, setSearchDatas] = useState([]);
     const [joinDatas, setJoinDatas] = useState();
@@ -36,6 +40,14 @@ const ProductContextProvider = (props) => {
 
 
     /* user */
+    let user = JSON.parse(secureLocalStorage.getItem('user-auth'));
+    let user_id =  user.data.id;
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/register")
+        }
+    }, [])
 
 
     /* get Data function */
@@ -50,6 +62,7 @@ const ProductContextProvider = (props) => {
     /* add product  */
     async function addProduct() {
         const formData = new FormData();
+/*         formData.append("user_id", user_id); */
         formData.append("file", file_path);
         formData.append("name", name);
         formData.append("price", price);

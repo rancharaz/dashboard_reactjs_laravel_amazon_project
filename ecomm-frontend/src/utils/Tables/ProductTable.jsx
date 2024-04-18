@@ -9,7 +9,7 @@ import secureLocalStorage from "react-secure-storage";
 
 const ProductTable = () => {
 
-    const { datas, deleteAction,  } = useContext(ProductContext);
+    const { datas, deleteAction, } = useContext(ProductContext);
     const [modal, setModal] = useState(false);
     const [deleteData, setDeleteData] = useState({});
     const [modalOpen, setModalOpen] = useState(false);
@@ -22,7 +22,7 @@ const ProductTable = () => {
     /* let mixDatas = JSON.stringify(joinDatas) */
 
 
-    console.log("UserID",user.data.id)
+    console.log("UserID", user.data.id)
 
 
     const toggleModal = (id) => {
@@ -38,26 +38,22 @@ const ProductTable = () => {
         let result = await fetch(`http://localhost:8000/api/data-user`);
         result = await result.json();
         setUserProducts(result);
-        console.log("RESULT",result)
- 
+        console.log("RESULT", result)
+
     }
 
     useEffect(() => {
         getData()
-    },[])
-  
+    }, [])
 
- 
+
+
 
 
 
     return (
 
         <div>
-
- 
-   
-           
             <h1 className='mb-8'>Product list    </h1>
             <table className="table ">
                 <thead>
@@ -82,68 +78,57 @@ const ProductTable = () => {
                             return (
 
                                 <>
-                               
+
 
                                     {(() => {
                                         switch (user.data.id) {
                                             case id:
-                                                return <> 
-                                                     
-                                            
+                                                return <>
+
+
                                                     <h1> {data.product.map(item => {
-                                                       return(
-                                                        <>
-                                                        <h1>Name: {item.name}</h1>
-                                                        <h1>Description: {item.description}</h1>
-                                                        <h1>Buying price: {item.buying_price}</h1>
-                                                        <h1>Selling price: {item.selling_price}</h1>
+                                                        return (
+                                                            <>
+                                                                <tr key={id} className='group cursor-pointer hover:bg-gray-100'>
+                                                                    <td className='table-content'>{item.id}</td>
+                                                                    <td className='table-content'>{item.name}</td>
+                                                                    <td className='table-content'>
+                                                                        <Link to={`${process.env.REACT_APP_API_URL}` + item.file_path} target='_blank'>
+                                                                            <img src={`${process.env.REACT_APP_API_URL}` + item.file_path} alt="" className='w-14' />
+                                                                        </Link>
+                                                                    </td>
+                                                                    <td className='table-content'>{item.description}</td>
+                                                                    <td className='table-content'>{item.price}</td>
+                                                                    <td className='table-content'>{item.buying_price}</td>
+                                                                    <td className='table-content'>{item.selling_price}</td>
+                                                                    <td>
+                                                                        <button onClick={() => {
+                                                                            {
+                                                                                setModalOpen(true)
+                                                                                toggleModal(id)
+                                                                            }
+                                                                        }} className='btn-error'>Delete</button>
+                                                                    </td>
+                                                                    <td>
+                                                                        <Link to={`${ROUTES.UpdateProduct}/${id}`}>
+                                                                            <button className='btn-success'>Update</button>
+                                                                        </Link>
+                                                                    </td>
 
-                                                        </>
-                                                        
-                                                       )
+                                                                </tr>
+
+                                                            </>
+
+                                                        )
                                                     })}</h1>
-                                                    
 
-                                                 </>
- 
+                                                </>
                                             default:
                                                 return null
                                         }
                                     })()}
                                 </>
                             )
-
-
-
-
-
-/*                                                         return (
-                                                            <tr key={id} className='group cursor-pointer hover:bg-gray-100'>
-                                                                <td className='table-content'>{id}</td>
-                                                                <td className='table-content'>{name}</td>
-                                                                <td className='table-content'>
-                                                                    <Link to={`${process.env.REACT_APP_API_URL}` + data.file_path} target='_blank'>
-                                                                        <img src={`${process.env.REACT_APP_API_URL}` + data.file_path} alt="" className='w-14' />
-                                                                    </Link>
-                                                                </td>
-                                                                <td className='table-content'>{description}</td>
-                                                                <td className='table-content'>{price}</td>
-                                                                <td className='table-content'>{buying_price}</td>
-                                                                <td className='table-content'>{selling_price}</td>
-                                                                <td> 
-                                                                <button onClick={() => {{
-                                                                     setModalOpen(true)
-                                                                     toggleModal(id)
-                                                                }}} className='btn-error'>Delete</button>
-                                                                </td>
-                                                                <td>
-                                                                    <Link to={`${ROUTES.UpdateProduct}/${id}`}>
-                                                                        <button className='btn-success'>Update</button>
-                                                                    </Link>
-                                                                </td>
-                            
-                                                            </tr>
-                                                        ) */
                         })
 
                     }

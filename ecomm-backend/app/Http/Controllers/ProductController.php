@@ -10,6 +10,8 @@ class ProductController extends Controller
     public function addProduct(Request $req){
         $product = new Product;
         $product->name=$req->input('name');
+        $product->user_id=$req->input('user_id');
+
         $product->price=$req->input('price');
         $product->buying_price=$req->input('buying_price');
         $product->selling_price=$req->input('selling_price');
@@ -45,7 +47,8 @@ class ProductController extends Controller
             return $product;
         }
 
+
     public function search($key){
         return Product::where('name', 'Like', "%$key%")->get();
-    }
+        }
 }
