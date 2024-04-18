@@ -19,6 +19,7 @@ const LoginForm = () => {
         }
     }, [])
     /*  */
+    console.log("user",user)
 
     const http = axios.create({
         baseURL: "http://localhost:8000",
@@ -40,7 +41,7 @@ const LoginForm = () => {
             
 
         })
-        console.log('login', login);
+        console.log('login', login.data.id);
 
         const user = await http.get('/api/get-user');
         console.log('user = ', user)
@@ -49,6 +50,8 @@ const LoginForm = () => {
        if(!login){
         
         console.log("USER NOT EXIST")
+        navigate("/add-product");
+
        } else {
         console.log("USER EXIST")
         navigate("/add-product");
@@ -56,6 +59,39 @@ const LoginForm = () => {
        }
     }
 
+
+
+    /* login function */
+/*     async function handleLogin() {
+        try {
+            let item = { email, password };
+            let result = await fetch(`${process.env.REACT_APP_API_LOGIN_LINK}`, {
+                method: "POST",
+                mode: "cors",
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type, Authorization',
+                    'Access-Control-Allow-Methods': '*',
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(item),  
+            })
+            if (!result.ok) {
+                throw new Error("Network response was not OK");
+            }
+            result = await result.json();
+ 
+            localStorage.setItem("user-info", JSON.stringify(result));
+            console.log("login",result)
+            navigate("/add-product");
+
+        }
+        catch (error) {
+            console.error("There has been a problem with your fetch operation:", error);
+            notifyError('Credentials are not correct.')   
+        }
+    }
+ */
 
 
     return (

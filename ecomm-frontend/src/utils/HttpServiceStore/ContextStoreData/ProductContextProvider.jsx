@@ -64,7 +64,7 @@ const ProductContextProvider = (props) => {
 
     /* add product  */
     async function addProduct(user_id) {
-        console.log(user_id)
+        console.log("testage",user_id)
         const formData = new FormData();
         formData.append("user_id", user_id);
         formData.append("file", file_path);
