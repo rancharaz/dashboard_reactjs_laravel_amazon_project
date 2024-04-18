@@ -8,13 +8,14 @@ import  secureLocalStorage  from  "react-secure-storage";
 
 const Header = () => {
 
-  let user = JSON.parse(secureLocalStorage.getItem('user-auth'));
+  let user = JSON.parse(secureLocalStorage.getItem('user-info'));
   let navigate = useNavigate();
-
  
+  
   function logout() {
-    localStorage.clear();
+    secureLocalStorage.clear();
     navigate(`${ROUTES.Register}`)
+    console.log("dd", user)
   }
  
 
@@ -29,14 +30,14 @@ const Header = () => {
             <ul className='flex gap-6'>
               {/* if userinfo true show add and update page else show login... */}
               {
-                secureLocalStorage.getItem('user-auth') ?
+                secureLocalStorage.getItem('user-info') ?
                   <>
                     <Link to={ROUTES.ProductList}>{MENULIST.ProductList}</Link>
                     <Link to={ROUTES.AddProduct}>{MENULIST.AddProduct}</Link>
 
                     <Link to={ROUTES.SearchProduct}>{MENULIST.SearchProduct}</Link>
 
-                    <Link>Username: {user && user.data.name}</Link>
+                    <Link>Username: {user && user.name}</Link>
                     <Link to={ROUTES.Register} onClick={logout}>{MENULIST.Logout}</Link>
 
                   </>

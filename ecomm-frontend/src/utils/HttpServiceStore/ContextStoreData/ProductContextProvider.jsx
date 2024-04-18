@@ -43,7 +43,7 @@ const ProductContextProvider = (props) => {
  
 
     /* user */
-    let user = JSON.parse(secureLocalStorage.getItem('user-auth'));
+    let user = JSON.parse(secureLocalStorage.getItem('user-info'));
  
   
     useEffect(() => {

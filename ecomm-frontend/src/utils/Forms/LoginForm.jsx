@@ -44,8 +44,8 @@ const LoginForm = () => {
 
         const user = await http.get('/api/get-user');
         console.log('user = ', user)
-        secureLocalStorage.setItem("user-auth", JSON.stringify(login));
-        console.log(secureLocalStorage.getItem("user-auth"));
+        secureLocalStorage.setItem("user-info", JSON.stringify(login));
+        console.log(secureLocalStorage.getItem("user-info"));
        if(!login){
         
         console.log("USER NOT EXIST")
@@ -56,39 +56,6 @@ const LoginForm = () => {
        }
     }
 
-
-
-    /* login function */
-/*     async function handleLogin() {
-        try {
-            let item = { email, password };
-            let result = await fetch(`${process.env.REACT_APP_API_LOGIN_LINK}`, {
-                method: "POST",
-                mode: "cors",
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type, Authorization',
-                    'Access-Control-Allow-Methods': '*',
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(item),  
-            })
-            if (!result.ok) {
-                throw new Error("Network response was not OK");
-            }
-            result = await result.json();
- 
-            localStorage.setItem("user-info", JSON.stringify(result));
-            console.log("login",result)
-            navigate("/add-product");
-
-        }
-        catch (error) {
-            console.error("There has been a problem with your fetch operation:", error);
-            notifyError('Credentials are not correct.')   
-        }
-    }
- */
 
 
     return (

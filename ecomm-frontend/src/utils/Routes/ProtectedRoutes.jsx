@@ -5,7 +5,7 @@ import  secureLocalStorage  from  "react-secure-storage";
 
 const ProtectedRoute = () => {
 
-    const auth = secureLocalStorage.getItem("user-auth");
+    const auth = secureLocalStorage.getItem("user-info");
 
     return auth ? <Outlet /> : <Navigate to={ROUTES.Register} />
     /* if user true go on pages else return on register */

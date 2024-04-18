@@ -16,13 +16,13 @@ const ProductTable = () => {
     const [message, setMessage] = useState("");
     const [userProducts, setUserProducts] = useState([]);
 
-    let user = JSON.parse(secureLocalStorage.getItem('user-auth'));
+    let user = JSON.parse(secureLocalStorage.getItem('user-info'));
     /*     let dataUsers = JSON.stringify(joinDatas); */
 
     /* let mixDatas = JSON.stringify(joinDatas) */
 
 
-    console.log("UserID", user.data.id)
+    console.log("UserID", user.id)
 
 
     const toggleModal = (id) => {
@@ -81,7 +81,7 @@ const ProductTable = () => {
 
 
                                     {(() => {
-                                        switch (user.data.id) {
+                                        switch (user.id) {
                                             case id:
                                                 return <>
 
