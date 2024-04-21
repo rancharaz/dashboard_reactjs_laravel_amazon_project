@@ -10,7 +10,7 @@ const LoginForm = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     let navigate = useNavigate();
-    let user = JSON.parse(localStorage.getItem('user-info'));
+    let user = JSON.parse(secureLocalStorage.getItem('user-info'));
 
     /* if data user data true navigate to add product */
     useEffect(() => {
@@ -21,7 +21,7 @@ const LoginForm = () => {
     /*  */
     console.log("user",user)
 
-    const http = axios.create({
+/*     const http = axios.create({
         baseURL: "http://localhost:8000",
         headers: {
             'X-Requested-With': "XMLHttpRequest",
@@ -40,13 +40,11 @@ const LoginForm = () => {
             password,
             
 
-        })
-        console.log('login', login.data.id);
-
+        }) 
         const user = await http.get('/api/get-user');
-        console.log('user = ', user)
+        console.log(user)
         secureLocalStorage.setItem("user-info", JSON.stringify(login));
-        console.log(secureLocalStorage.getItem("user-info"));
+ 
        if(!login){
         
         console.log("USER NOT EXIST")
@@ -57,12 +55,10 @@ const LoginForm = () => {
         navigate("/add-product");
 
        }
-    }
-
-
+    } */
 
     /* login function */
-/*     async function handleLogin() {
+    async function handleLogin() {
         try {
             let item = { email, password };
             let result = await fetch(`${process.env.REACT_APP_API_LOGIN_LINK}`, {
@@ -81,7 +77,7 @@ const LoginForm = () => {
             }
             result = await result.json();
  
-            localStorage.setItem("user-info", JSON.stringify(result));
+            secureLocalStorage.setItem("user-info", JSON.stringify(result));
             console.log("login",result)
             navigate("/add-product");
 
@@ -91,7 +87,7 @@ const LoginForm = () => {
             notifyError('Credentials are not correct.')   
         }
     }
- */
+
 
 
     return (
@@ -117,7 +113,7 @@ const LoginForm = () => {
 							<label for="password" class="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Password</label>
 						</div>
 						<div class="relative">
-							<button class="bg-blue-500 text-white rounded-md px-2 py-1" onClick={getUser}>Submit</button>
+							<button class="bg-blue-500 text-white rounded-md px-2 py-1" onClick={handleLogin}>Submit</button>
 						</div>
 					</div>
 				</div>

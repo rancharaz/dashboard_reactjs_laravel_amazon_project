@@ -47,10 +47,6 @@ const ProductTable = () => {
     }, [])
 
 
-
-
-
-
     return (
 
         <div>
@@ -78,8 +74,6 @@ const ProductTable = () => {
                             return (
 
                                 <>
-
-
                                     {(() => {
                                         switch (user.id) {
                                             case id:

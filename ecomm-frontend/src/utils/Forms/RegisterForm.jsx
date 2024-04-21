@@ -37,7 +37,7 @@ const RegisterForm = () => {
     async function signUp() {
 
         try {
-            let item = { name, email, password };/* data in object */
+            let item = { name, email, password }; 
 
             let result = await fetch(`${process.env.REACT_APP_API_REGISTER_LINK}`, {
                 method: "POST",
@@ -48,7 +48,7 @@ const RegisterForm = () => {
                     'Access-Control-Allow-Methods': '*',
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(item), /* data string */
+                body: JSON.stringify(item),  
 
             })
             console.log(true)
@@ -57,7 +57,7 @@ const RegisterForm = () => {
             }
             result = await result.json();
             console.log(result)
-            /*  console.log(result) */
+ 
             secureLocalStorage.setItem("user-info", JSON.stringify(result));
             navigate("/add-product")
         

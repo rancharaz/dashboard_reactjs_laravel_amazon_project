@@ -23,12 +23,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/register', [UserController::class, 'register']);
-Route::post('/login', [UserController::class, 'login']);
+Route::post('/login', [UserController::class, 'login'])->middleware('auth:sanctum');
 Route::get('/get-user', [UserController::class, 'getUser']);
-
-
-
-
 
 
 Route::post('/add-product', [ProductController::class, 'addProduct']);
@@ -40,10 +36,7 @@ Route::get('/search-product/{key}', [ProductController::class, 'search']);
 Route::get('/product-list', [ProductController::class, 'list']);
 
 /* testing */
-
 Route::get('/show-join', [UserProductController::class, 'showProduct']);
 Route::get('/show-id/{id}', [UserController::class, 'show_id']);
-
 Route::get('/add-user-products', [UserController::class, 'addUserproduct']);
-
 Route::get('/data-user', [UserController::class, 'getUserJoinData']);
