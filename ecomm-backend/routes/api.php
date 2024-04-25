@@ -18,12 +18,13 @@ use App\Http\Controllers\ProductModelsController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::group(['middleware' => 'auth:sanctum'], function(){
+    //All secure URL's
+
+    });
 
 Route::post('/register', [UserController::class, 'register']);
-Route::post('/login', [UserController::class, 'login'])->middleware('auth:sanctum');
+Route::post('/login', [UserController::class, 'login']);
 Route::get('/get-user', [UserController::class, 'getUser']);
 
 

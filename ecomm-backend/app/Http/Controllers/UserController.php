@@ -21,6 +21,13 @@ class UserController extends Controller
             'user_id'=>'nullable'
         ]);
 
+        if(User::where('email', $request->email)->first()){
+            return response([
+                'message' => 'Email already exists',
+                'status' => 'failed'
+            ], 200);
+        }
+
         $user = User::create([
             'name' => $fields['name'],
             'email' => $fields['email'],
@@ -28,13 +35,20 @@ class UserController extends Controller
 
 
         ]);
+        $token = $user->createToken($request->email)->plainTextToken;
         if(!$user){
             return response([
                 'message' => 'Credentials are not correct.'
             ], 401);
-        } else {
-          return  $user;
         }
+
+
+        return response([
+            'user' => $user,
+            'token'=>$token,
+            'message' => 'Registration Success',
+            'status'=>'success'
+        ], 201);
 
 
     }
@@ -53,9 +67,16 @@ class UserController extends Controller
                 return response([
                     'message' => 'Credentials are not correct.'
                 ], 401);
-            } else {
-              return  $user;
             }
+            $token = $user->createToken($request->email)->plainTextToken;
+
+           $response = [
+               'user' => $user,
+               'token' => $token,
+               'status' => 'success'
+           ];
+
+            return response($response, 201);
     }
 
     public function getUser(){
@@ -85,4 +106,3 @@ class UserController extends Controller
 
     }
 }
-

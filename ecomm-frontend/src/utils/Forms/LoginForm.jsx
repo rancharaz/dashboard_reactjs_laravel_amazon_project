@@ -10,7 +10,7 @@ const LoginForm = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     let navigate = useNavigate();
-    let user = JSON.parse(secureLocalStorage.getItem('user-info'));
+    let user = JSON.parse(secureLocalStorage.getItem('user-auth'));
 
     /* if data user data true navigate to add product */
     useEffect(() => {
@@ -19,76 +19,31 @@ const LoginForm = () => {
         }
     }, [])
     /*  */
-    console.log("user",user)
 
-/*     const http = axios.create({
+    const http = axios.create({
         baseURL: "http://localhost:8000",
-        headers: {
-            'X-Requested-With': "XMLHttpRequest",
-        },
         withCredentials: true,
     });
 
- 
- 
-    async function getUser(){
-        const csrf = await http.get('/sanctum/csrf-cookie');
-        console.log('csrf = ', csrf);
-
+    async function handleLogin(){
+        const csrf = await http.get('/sanctum/csrf-cookie', {
+            headers: {
+                'X-Requested-With': "XMLHttpRequest",
+            }
+        });
         const login = await http.post('/api/login', {
             email,
             password,
-            
-
-        }) 
-        const user = await http.get('/api/get-user');
-        console.log(user)
-        secureLocalStorage.setItem("user-info", JSON.stringify(login));
- 
-       if(!login){
-        
-        console.log("USER NOT EXIST")
-        navigate("/add-product");
-
-       } else {
-        console.log("USER EXIST")
-        navigate("/add-product");
-
-       }
-    } */
-
-    /* login function */
-    async function handleLogin() {
-        try {
-            let item = { email, password };
-            let result = await fetch(`${process.env.REACT_APP_API_LOGIN_LINK}`, {
-                method: "POST",
-                mode: "cors",
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Content-Type, Authorization',
-                    'Access-Control-Allow-Methods': '*',
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(item),  
-            })
-            if (!result.ok) {
-                throw new Error("Network response was not OK");
-            }
-            result = await result.json();
- 
-            secureLocalStorage.setItem("user-info", JSON.stringify(result));
-            console.log("login",result)
+        }).then(res => {
+            secureLocalStorage.setItem("user-auth", JSON.stringify(res.data));
             navigate("/add-product");
+            console.log(res.data)
 
-        }
-        catch (error) {
-            console.error("There has been a problem with your fetch operation:", error);
-            notifyError('Credentials are not correct.')   
-        }
+        }).catch(function(error){
+            notifyError(error.message)
+        })
+      
     }
-
-
 
     return (
         <div>

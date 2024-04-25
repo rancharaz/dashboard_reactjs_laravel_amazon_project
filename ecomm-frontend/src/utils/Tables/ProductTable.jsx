@@ -16,13 +16,13 @@ const ProductTable = () => {
     const [message, setMessage] = useState("");
     const [userProducts, setUserProducts] = useState([]);
 
-    let user = JSON.parse(secureLocalStorage.getItem('user-info'));
+    let user = JSON.parse(secureLocalStorage.getItem('user-auth'));
     /*     let dataUsers = JSON.stringify(joinDatas); */
 
     /* let mixDatas = JSON.stringify(joinDatas) */
 
-
-    console.log("UserID", user.id)
+/* 
+    console.log("UserID", user.id) */
 
 
     const toggleModal = (id) => {
@@ -38,7 +38,7 @@ const ProductTable = () => {
         let result = await fetch(`http://localhost:8000/api/data-user`);
         result = await result.json();
         setUserProducts(result);
-        console.log("RESULT", result)
+       /*  console.log("RESULT", result) */
 
     }
 
@@ -75,7 +75,7 @@ const ProductTable = () => {
 
                                 <>
                                     {(() => {
-                                        switch (user.id) {
+                                        switch (user.user.id) {
                                             case id:
                                                 return <>
 

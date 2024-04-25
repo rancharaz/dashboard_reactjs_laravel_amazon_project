@@ -5,13 +5,12 @@ import secureLocalStorage from "react-secure-storage";
 
 const AddProductForm = () => {
 
-    let user = JSON.parse(secureLocalStorage.getItem('user-info'));
-    let user_id = user.id;
+    let user = JSON.parse(secureLocalStorage.getItem('user-auth'));
+    let user_id = user.user.id;
 
     const { addProduct, setName, setPrice, setDescription, setFile, setBuying_price,
         setSelling_price } = useContext(ProductContext);
 
-        console.log(user_id)
     
 
     return (

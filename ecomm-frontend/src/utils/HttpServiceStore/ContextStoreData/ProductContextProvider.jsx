@@ -43,7 +43,7 @@ const ProductContextProvider = (props) => {
  
 
     /* user */
-    let user = JSON.parse(secureLocalStorage.getItem('user-info'));
+    let user = JSON.parse(secureLocalStorage.getItem('user-auth'));
  
   
     useEffect(() => {
@@ -64,7 +64,6 @@ const ProductContextProvider = (props) => {
 
     /* add product  */
     async function addProduct(user_id) {
-        console.log("testage",user_id)
         const formData = new FormData();
         formData.append("user_id", user_id);
         formData.append("file", file_path);
@@ -109,15 +108,15 @@ const ProductContextProvider = (props) => {
         setSelling_price(result.selling_price)
         setBuying_price(result.buying_price)
 
-        console.log("result", result)
-        console.log(file_path)
+   /*      console.log("result", result)
+        console.log(file_path) */
     }
 
 
 
     /* updated function */
     async function handleUpdate(inputValueId) {
-        console.log("sell",selling_price)
+        /* console.log("sell",selling_price) */
         let data = { name, price, description, file_path, buying_price, selling_price};/* destructure */
 
         let result = await fetch(`http://localhost:8000/api/product/${inputValueId}`, {

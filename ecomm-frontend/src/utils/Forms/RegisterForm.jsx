@@ -11,20 +11,14 @@ const RegisterForm = () => {
     const [password, setPassword] = useState("");
 
     let navigate = useNavigate();
-
-    /* if data user data true navigate to add product */
-/*     useEffect(() => {
-        if (secureLocalStorage.getItem("user-info")) {
-            navigate("/add-product")
-        }
-    }, []) */
+ 
 
     useEffect(() => {
         userInfoNav()
     }, [])
 
     function userInfoNav(){
-        let user_info = secureLocalStorage.getItem("user-info");
+        let user_info = secureLocalStorage.getItem("user-auth");
         if (user_info) {
             navigate(`${ROUTES.AddProduct}`)
         } else {
@@ -58,7 +52,7 @@ const RegisterForm = () => {
             result = await result.json();
             console.log(result)
  
-            secureLocalStorage.setItem("user-info", JSON.stringify(result));
+            secureLocalStorage.setItem("user-auth", JSON.stringify(result));
             navigate("/add-product")
         
         }
