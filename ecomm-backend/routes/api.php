@@ -20,24 +20,22 @@ use App\Http\Controllers\ProductModelsController;
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
     //All secure URL's
+    Route::get('/get-user', [UserController::class, 'getUser']);
+    Route::post('/add-product', [ProductController::class, 'addProduct']);
+    Route::get('/', [ProductController::class, 'list']);
+    Route::delete('/delete-product/{id}', [ProductController::class, 'delete']);
+    Route::get('/product/{id}', [ProductController::class, 'getProduct']);
+    Route::put('/product/{id}', [ProductController::class, 'update']);
+    Route::get('/search-product/{key}', [ProductController::class, 'search']);
+    Route::get('/product-list', [ProductController::class, 'list']);
+
+    /* testing */
+    Route::get('/show-join', [UserProductController::class, 'showProduct']);
+    Route::get('/show-id/{id}', [UserController::class, 'show_id']);
+    Route::get('/add-user-products', [UserController::class, 'addUserproduct']);
+    Route::get('/data-user', [UserController::class, 'getUserJoinData']);
 
     });
 
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
-Route::get('/get-user', [UserController::class, 'getUser']);
-
-
-Route::post('/add-product', [ProductController::class, 'addProduct']);
-Route::get('/', [ProductController::class, 'list']);
-Route::delete('/delete-product/{id}', [ProductController::class, 'delete']);
-Route::get('/product/{id}', [ProductController::class, 'getProduct']);
-Route::put('/product/{id}', [ProductController::class, 'update']);
-Route::get('/search-product/{key}', [ProductController::class, 'search']);
-Route::get('/product-list', [ProductController::class, 'list']);
-
-/* testing */
-Route::get('/show-join', [UserProductController::class, 'showProduct']);
-Route::get('/show-id/{id}', [UserController::class, 'show_id']);
-Route::get('/add-user-products', [UserController::class, 'addUserproduct']);
-Route::get('/data-user', [UserController::class, 'getUserJoinData']);
